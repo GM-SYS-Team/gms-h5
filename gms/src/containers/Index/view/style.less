@@ -1,0 +1,79 @@
+.sales {
+    .am-list-body {
+        background: none;
+        overflow: hidden;
+        border: 1px solid #eee;
+        border-radius: 6px;
+    }
+
+    .am-tabs {
+        background: url("./index-bg.jpg") repeat;
+        background-size: auto 100%;
+    }
+    .am-tabs-tab-bar-wrap {
+        width: 50%;
+        margin-left: 25%;
+    }
+    /*tabs 顶部*/
+    .am-tabs-default-bar {
+        background-color: rgba(255, 255, 255, 0) !important;
+        color: #ddd;
+        .am-tabs-default-bar-top {
+            border-bottom: 0px solid !important;
+        }
+        .am-tabs-default-bar-tab {
+            border-bottom: 0px solid !important;
+            &:after {
+                @media (-webkit-min-device-pixel-ratio: 2), not all, (min-resolution: 2dppx) {
+                    height: 0px !important;
+                }
+            }
+        }
+        .am-tabs-default-bar-tab-active {
+            color: #fff;
+        }
+        .am-tabs-default-bar-underline {
+            border: 1px #fff solid;
+        }
+
+        &:after {
+            @media (-webkit-min-device-pixel-ratio: 2), not all, (min-resolution: 2dppx) {
+                background-color:red;
+                height: 0px !important;
+            }
+        }
+    }
+
+    /*tabs 内容*/
+    .tabs-content {
+
+    }
+
+    .content-item {
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+        .sale {
+            font-size: 25px;
+            font-weight: 800;
+        }
+        .word {
+            font-size: 12px;
+            color: #fdfdfd;
+            line-height: 15px;
+        }
+    }
+}
+.am-tab-bar-bar{
+    left:0;
+}
+
+.device-sale-list{
+    .am-button-inline{
+        padding: 0;
+    }
+}
+
+
+
+
