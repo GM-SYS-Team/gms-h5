@@ -24,6 +24,20 @@ export const modifyNickName = (params,callBack) => {
     }
 };
 
+//修改昵称
+export const changeHeadImg = (imgStr) => {
+    return (dispatch) => {
+        post("/vm-web/test/img",false,{baseStr:imgStr},(res)=>{
+            if(res.code === 1){
+                Toast.info("修改成功");
+            }else{
+                Toast.info(res.msg);
+            }
+        });
+    }
+};
+
+
 
 
 
