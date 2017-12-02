@@ -5,7 +5,7 @@ import {Helmet} from "react-helmet";
 
 
 /**
- * 应用入口，指向路由
+ * 应用入口，指向路由 test
  */
 ReactDOM.render(
     <div>
