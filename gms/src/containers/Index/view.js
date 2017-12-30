@@ -26,27 +26,27 @@ class Index extends React.Component{
 
         const data = Array.from([
             {
-                icon: 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png',
+                icon: require('./view/icon1.png'),
                 text: `国码优赚呗`,
             },
             {
-                icon: 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png',
+                icon: require('./view/icon2.png'),
                 text: `社区`,
             },
             {
-                icon: 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png',
+                icon: require('./view/icon3.png'),
                 text: `广电`,
             },
             {
-                icon: 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png',
+                icon: require('./view/icon4.png'),
                 text: `拓展`,
             },
             {
-                icon: 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png',
+                icon: require('./view/icon5.png'),
                 text: `印章`,
             },
             {
-                icon: 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png',
+                icon: require('./view/icon6.png'),
                 text: `微商`,
             }
         ]);

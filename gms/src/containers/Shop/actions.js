@@ -5,18 +5,18 @@ import {getCookie,setCookie} from '../../utils/cookie';
 import {Toast } from 'antd-mobile';
 
 
-
-//订单列表
-export const LIST_ORDER = "order/listOrder";
-export const showOrderList = (data) => ({
-    type: LIST_ORDER,
+//店铺列表
+export const index_shop_list = "index_shop_list";
+export const showShopList = (data) => ({
+    type: index_shop_list,
     data: data
-})
-export const listOrder = (params) => {
+});
+
+export const loadingShopList = (params) => {
     return (dispatch) => {
-        post("/order/listOrderQueryVO",true,params,(res)=>{
-            if(res.code === "600"){
-                dispatch(showOrderList(res.data));
+        post("/app/shop/list",false,params,(res)=>{
+            if(res.code === "1"){
+                dispatch(showShopList(res.data));
             }else{
                 Toast.info(res.msg);
             }
@@ -24,17 +24,12 @@ export const listOrder = (params) => {
     }
 };
 
-//订单详情
-export const ORDER_DETAIL = "order/orderDetail";
-export const showOrderDetail = (data) => ({
-    type: ORDER_DETAIL,
-    data: data
-})
-export const getOrderById = (params) => {
+//店铺新增
+export const shopAdd = (params) => {
     return (dispatch) => {
-        post("/order/getOrderVOById",true,params,(res)=>{
-            if(res.code === "600"){
-                dispatch(showOrderDetail(res.data));
+        post("/app/shop/save",false,params,(res)=>{
+            if(res.code === "1"){
+                browserHistory.push("/shop/manager")
             }else{
                 Toast.info(res.msg);
             }

@@ -1,14 +1,22 @@
 import React from 'react';
 import { NavBar, Icon } from 'antd-mobile';
+import { browserHistory } from 'react-router'
 
 /**
  * 容器组件
  */
 export class TopBar extends React.Component{
 
+    //是否指定跳转页面
     leftClick = () =>{
+        let targetPage = this.props.targetPage;
+        if(typeof targetPage !== "undefined"){
+            browserHistory.push(targetPage);
+        }else{
+            window.history.back();
+        }
+
         //TODO 调用安卓滑动返回
-        window.history.back();
     }
 
     render(){

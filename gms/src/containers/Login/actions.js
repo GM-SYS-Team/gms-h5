@@ -17,7 +17,7 @@ export const login = (values) => {
         }
 
         post(url,false,values,(res)=>{
-            if(res.code === 1){
+            if(res.code === "1"){
                 localStorage.setItem("nickName",res.data.nickName);
                 localStorage.setItem("phoneNum",res.data.phoneNum);
                 localStorage.setItem("userType",res.data.userType);
@@ -38,7 +38,7 @@ export const login = (values) => {
 export const sendVerifyCode = (params) => {
     return (dispatch) => {
         post("/app/user/sendSmsCode",false,params,(res)=>{
-            if(res.code === 1){
+            if(res.code === "1"){
                 Toast.info("发送成功");
             }else{
                 Toast.info(res.msg);
@@ -61,7 +61,7 @@ export const reg = (params) => {
 
     return (dispatch) => {
         post(url,false,params,(res)=>{
-            if(res.code === 1){
+            if( res.code === "1"){
                 Toast.info("注册成功",3,() =>{
                     browserHistory.push("/login");
                 });
@@ -78,7 +78,7 @@ export const forgetPassword = (params) => {
 
     return (dispatch) => {
         post("/app/user/forgetPassword",false,params,(res)=>{
-            if(res.code === 1){
+            if(res.code === "1"){
                 Toast.info("密码重置成功",3,() =>{
                     browserHistory.push("/login");
                 });

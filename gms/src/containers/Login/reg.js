@@ -108,7 +108,9 @@ class Reg extends React.Component{
 
         this.props.form.validateFields((error, values) => {
             values.userType = this.params.userType;
-            values.district =  values.district.join(",");
+            if(typeof values.district !== "undefined"){
+                values.district =  values.district.join(",");
+            }
             if (!error) {
                 this.setState({formError: {}})
                 this.props.reg(values);

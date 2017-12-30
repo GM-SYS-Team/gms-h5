@@ -11,16 +11,9 @@ import dealPage from '../../utils/dealPage';
 export default (state = {}, action) => {
     switch (action.type) {
 
-        //订单列表
-        case actions.LIST_ORDER:{
-            let pager = dealPage(action.data);
-            console.log(action.data);
-            return {...state,orderList:action.data.list,pager: pager}
-        }
-
-        //订单详情
-        case actions.ORDER_DETAIL:{
-            return {...state,orderDetail:action.data}
+        //门店列表
+        case actions.index_shop_list:{
+            return {...state,shopList:action.data}
         }
 
         default:

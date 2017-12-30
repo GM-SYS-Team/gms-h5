@@ -12,9 +12,23 @@ class Layout extends React.Component{
 
     constructor(props) {
         super(props);
+
+        //设置默认的tab页面
+        let selectedTab = "gailan";
+        let savedSelectedTab = localStorage.getItem("selectedTab");
+        if(typeof savedSelectedTab !== "undefined"){
+            selectedTab = savedSelectedTab;
+        }
         this.state = {
-            selectedTab: 'gailan'
+            selectedTab: selectedTab
         };
+    }
+
+
+
+    setSelectedTab = (selectedTab) =>{
+        this.setState({selectedTab:selectedTab});
+        localStorage.setItem("selectedTab",selectedTab);
     }
 
     render(){
@@ -49,12 +63,8 @@ class Layout extends React.Component{
                             }
                             title="首页"
                             key="gailan"
-                            selected={this.state.selectedTab === 'gailan'}
-                            onPress={() => {
-                                this.setState({
-                                    selectedTab: 'gailan',
-                                });
-                            }}
+                            selected={this.state.selectedTab === "gailan"}
+                            onPress={this.setSelectedTab.bind(this,"gailan")}
                         >
                             <SalesView />
 
@@ -78,12 +88,8 @@ class Layout extends React.Component{
                             }
                             title="扫码"
                             key="shebei"
-                            selected={this.state.selectedTab === 'shebei'}
-                            onPress={() => {
-                                this.setState({
-                                    selectedTab: 'shebei',
-                                });
-                            }}
+                            selected={this.state.selectedTab === "shebei"}
+                            onPress={this.setSelectedTab.bind(this,"shebei")}
                         >
                             <SalesView/>
                         </TabBar.Item>
@@ -106,12 +112,8 @@ class Layout extends React.Component{
                             }
                             title="个人"
                             key="dingdan"
-                            selected={this.state.selectedTab === 'dingdan'}
-                            onPress={() => {
-                                this.setState({
-                                    selectedTab: 'dingdan',
-                                });
-                            }}
+                            selected={this.state.selectedTab === "dingdan"}
+                            onPress={this.setSelectedTab.bind(this,"dingdan")}
                         >
                             <OrderView/>
                         </TabBar.Item>
@@ -128,9 +130,6 @@ class Layout extends React.Component{
 //组件名和组件初始化状态
 export const stateKey = "layout";
 export const initialState = {
-    saleCount: {},
-    deviceCount:{},
-    saleData: {}
 
 };
 

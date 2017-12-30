@@ -57,6 +57,7 @@ class Login extends React.Component{
             <div className="login">
                 <TopBar
                     title="修改个人信息"
+                    targetPage="/?selectedTab=dingdan"
                 />
 
                 <WhiteSpace/>

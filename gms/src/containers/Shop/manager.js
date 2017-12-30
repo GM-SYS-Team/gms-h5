@@ -18,7 +18,12 @@ class Center extends React.Component{
         super(props);
     }
 
+    componentDidMount(){
+        //用户店铺列表
+        this.props.loadingShopList({page:1,rows:10});
 
+        console.log(this.props.shopList);
+    }
 
     render(){
 
@@ -53,19 +58,17 @@ class Center extends React.Component{
 }
 
 //组件名和组件初始化状态
-export const stateKey = "my";
+export const stateKey = "shop";
 export const initialState = {
-
-
+    shopList:[],
 };
 
 //注入state和actions
 const mapStateToProps = (state) => ({
-
-
+    shopList:state[stateKey].shopList
 });
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-
-
+    loadingShopList:actions.loadingShopList
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Center);
+

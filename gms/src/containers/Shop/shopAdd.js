@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import * as actions from './actions';
 import './view/style.less';
 
-import {WhiteSpace, WingBlank,Button, List,InputItem} from 'antd-mobile';
+import {WhiteSpace, WingBlank,Button, List,InputItem,Toast} from 'antd-mobile';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
 import {Link} from 'react-router';
@@ -15,11 +15,30 @@ const Brief = Item.Brief;
 
 class Add extends React.Component{
 
+    state = {
+        formError:{}
+    }
+
     constructor(props) {
         super(props);
     }
 
+    submit = () => {
+        this.props.form.validateFields((error, values) => {
+            if (!error) {
+                this.setState({formError: {}})
+                this.props.shopAdd(values);
+            }else{
+                this.setState({formError: error})
+            }
+        });
+    }
 
+    onErrorClick = (key) => {
+        if(typeof this.state.formError[key] !== "undefined" && this.state.formError[key].errors.length > 0 ){
+            Toast.info(this.state.formError[key].errors[0].message);
+        }
+    }
 
     render(){
         const { getFieldProps } = this.props.form;
@@ -33,11 +52,13 @@ class Add extends React.Component{
 
                 <List renderHeader={() => '新增'} className="link-list">
                     <InputItem
-                        {...getFieldProps('bankCard', {
+                        {...getFieldProps('shopName', {
                             initialValue: '',
+                            rules: [{ required: true,message:"请输入店铺名称"}],
                         })}
-                        type="bankCard"
                         placeholder="请输入店铺名称"
+                        error={typeof this.state.formError["shopName"] !== "undefined"}
+                        onErrorClick={this.onErrorClick.bind(this,"shopName")}
                     >店铺名称</InputItem>
                 </List>
 
@@ -54,19 +75,16 @@ class Add extends React.Component{
 const AddFormWrapper = createForm()(Add);
 
 //组件名和组件初始化状态
-export const stateKey = "my";
+export const stateKey = "shop";
 export const initialState = {
-
 
 };
 
 //注入state和actions
 const mapStateToProps = (state) => ({
 
-
 });
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-
-
+    shopAdd: actions.shopAdd
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(AddFormWrapper);

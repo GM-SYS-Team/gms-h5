@@ -52,6 +52,9 @@ export const get = (url,params,callBack) => {
 
 export const post = (url,isJSON,params,callBack) => {
     console.log(localStorage.getItem("userToken"));
+    if(typeof params === "undefined"){
+        params = {};
+    }
     params.access_token = localStorage.getItem("userToken")
     if(!isJSON){
         params = qs.stringify(params);

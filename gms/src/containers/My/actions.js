@@ -13,7 +13,7 @@ import {Toast } from 'antd-mobile';
 export const modifyNickName = (params,callBack) => {
     return (dispatch) => {
         post("/app/user/modifyNickName",false,params,(res)=>{
-            if(res.code === 1){
+            if(res.code === "1"){
                 Toast.info("修改成功");
                 localStorage.setItem("nickName",params.nickName);
                 callBack();
@@ -28,7 +28,7 @@ export const modifyNickName = (params,callBack) => {
 export const changeHeadImg = (imgStr) => {
     return (dispatch) => {
         post("/vm-web/test/img",false,{baseStr:imgStr},(res)=>{
-            if(res.code === 1){
+            if(res.code === "1"){
                 Toast.info("修改成功");
             }else{
                 Toast.info(res.msg);

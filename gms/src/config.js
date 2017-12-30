@@ -4,12 +4,4 @@
  */
 
 //test
-export const API_URL = "http://localhost:8080/";
-
-
-/**
- * 用户类型
- * @type {number}
- */
-export const USER_TYPE_SHOPER = "1";
-export const USER_TYPE_CUSTOMER = "2";
+export const API_URL = "http://192.168.2.178:8080/";
