@@ -44,7 +44,6 @@ class Draw extends React.Component{
         this.props.form.validateFields((error, values) => {
             if (!error) {
                 this.setState({formError: {}})
-                this.props.login(values);
             }else{
                 this.setState({formError: error})
             }
@@ -141,11 +140,9 @@ const DrawFormWrapper = createForm()(Draw);
 //组件名和组件初始化状态
 export const stateKey = "login";
 export const initialState = {
-    login: {}
 };
 
 //注入state和actions
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    login : actions.login
 }, dispatch);
 export default connect(null, mapDispatchToProps)(DrawFormWrapper);

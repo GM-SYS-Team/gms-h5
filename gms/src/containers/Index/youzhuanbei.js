@@ -15,10 +15,7 @@ class Index extends React.Component{
 
 
     componentDidMount(){
-        //用户店铺列表
-        this.props.loadingShopList({});
 
-        console.log(this.props.shopList);
     }
 
 
@@ -27,7 +24,10 @@ class Index extends React.Component{
         return (
             <div className="index" >
 
-                <TopBar title="优赚呗"/>
+                <TopBar
+                    title="优赚呗"
+                    targetPage="/"
+                />
 
                 <List renderHeader={() => '优赚呗'} className="link-list">
                     <Link to="/shop/manager">
@@ -44,14 +44,11 @@ class Index extends React.Component{
 //组件名和组件初始化状态
 export const stateKey = "index";
 export const initialState = {
-    shopList:[],
 };
 
 //注入state和actions
 const mapStateToProps = (state) => ({
-    shopList:state[stateKey].shopList
 });
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    loadingShopList:actions.loadingShopList
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

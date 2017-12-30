@@ -42,7 +42,7 @@ class Layout extends React.Component{
 
                     <TabBar
                         unselectedTintColor="#949494"
-                        tintColor="#ff9900"
+                        tintColor="#e10231"
                         barTintColor="white">
 
                         {/*概览*/}

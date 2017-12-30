@@ -10,6 +10,10 @@ import * as actions from './actions';
 export default (state = {}, action) => {
     switch (action.type) {
 
+        //门店优惠券列表
+        case actions.index_shop_coupon_list:{
+            return {...state,couponList:action.data}
+        }
 
         default:
             return {...state}

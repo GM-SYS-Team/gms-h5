@@ -1,5 +1,5 @@
 import * as actions from './actions.js';
-import {stateKey} from "./draw";
+import {stateKey} from "./coupon";
 
 import draw from './draw.js';
 import coupon from './coupon.js';

@@ -16,6 +16,21 @@ export default (state = {}, action) => {
             return {...state,shopList:action.data}
         }
 
+        //门店详情
+        case actions.index_shop_detail:{
+            return {...state,shopDetail:action.data}
+        }
+
+        //门店商品列表
+        case actions.index_shop_goods_list:{
+            return {...state,shopGoodsList:action.data}
+        }
+
+        //门店优惠券列表
+        case actions.index_shop_coupon_list:{
+            return {...state,couponList:action.data}
+        }
+
         default:
             return {...state}
     }

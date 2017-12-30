@@ -4,11 +4,12 @@ import {connect} from 'react-redux';
 import * as actions from './actions';
 import './view/style.less';
 
-import {WhiteSpace, WingBlank,Button, List,InputItem,ActionSheet,Modal,DatePicker,TextareaItem,Picker} from 'antd-mobile';
+import {WhiteSpace, WingBlank,Button, List,InputItem,ActionSheet,Modal,DatePicker,Toast,TextareaItem,Picker} from 'antd-mobile';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
 import {Link} from 'react-router';
 import enUs from 'antd-mobile/lib/date-picker/locale/en_US';
+import DateFormat from '../../utils/DateFormat';
 
 import { createForm } from 'rc-form';
 const Item = List.Item;
@@ -26,57 +27,60 @@ if (isIPhone) {
 
 const nowTimeStamp = Date.now();
 const now = new Date(nowTimeStamp);
-const utcNow = new Date(now.getTime() + (now.getTimezoneOffset() * 60000));
-let minDate = new Date(nowTimeStamp - 1e7);
-const maxDate = new Date(nowTimeStamp + 1e7);
-// console.log(minDate, maxDate);
-if (minDate.getDate() !== maxDate.getDate()) {
-    // set the minDate to the 0 of maxDate
-    minDate = new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate());
-}
-function formatDate(date) {
-    /* eslint no-confusing-arrow: 0 */
-    const pad = n => n < 10 ? `0${n}` : n;
-    const dateStr = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-    const timeStr = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
-    return `${dateStr} ${timeStr}`;
-}
-
-// If not using `List.Item` as children
-// The `onClick / extra` props need to be processed within the component
-const CustomChildren = ({ extra, onClick, children }) => (
-    <div
-        onClick={onClick}
-        style={{ backgroundColor: '#fff', height: '45px', lineHeight: '45px', padding: '0 15px' }}
-    >
-        {children}
-        <span style={{ float: 'right', color: '#888' }}>{extra}</span>
-    </div>
-);
 
 
 class couponAdd extends React.Component{
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            formError:{},
+
+            startDate:now,
+            endDate:now,
+            maxAmount:null,
+            minAmount:null,
+        }
     }
 
-    state = {
-        date: now,
-        time: now,
-        utcDate: utcNow,
-        dpValue: null,
-        customChildValue: null,
-        visible: false,
+    componentDidMount(){
+        //商品列表
+        this.props.listShopGoods({
+            shopId:this.props.params.id,
+            page:1,
+            rows:100
+        })
     }
 
-    onChange = (files, type, index) => {
-        console.log(files, type, index);
-        this.setState({
-            files,
+    submit = () => {
+        this.props.form.validateFields((error, values) => {
+            if (!error) {
+                this.setState({formError: {}})
+                values.shopId = this.props.params.id;
+                if(this.state.maxAmount === null){
+                    Toast.info("请选择面值");
+                    return;
+                }
+                values.goodsId = values.goodsId[0];
+                values.expiryDateStart = this.state.startDate.Format("yyyy-MM-dd HH:mm") ;
+                values.expiryDateStop = this.state.endDate.Format("yyyy-MM-dd HH:mm") ;
+                values.maxAmount = this.state.maxAmount;
+                values.minAmount = this.state.minAmount;
+                this.props.couponAdd(values);
+            }else{
+                this.setState({formError: error})
+            }
         });
     }
 
+    onErrorClick = (key) => {
+        if(typeof this.state.formError[key] !== "undefined" && this.state.formError[key].errors.length > 0 ){
+            Toast.info(this.state.formError[key].errors[0].message);
+        }
+    }
+
+    //面值选择
     showActionSheet = () => {
         const BUTTONS = ['固定面值', '随机面值', '取消'];
         ActionSheet.showActionSheetWithOptions({
@@ -86,32 +90,32 @@ class couponAdd extends React.Component{
                 maskClosable: true,
                 'data-seed': 'logId',
                 wrapProps,
-            },
-            (buttonIndex) => {
+            },(buttonIndex) => {
                 this.setState({ clicked: BUTTONS[buttonIndex] });
                 if(buttonIndex === 0){
                     prompt('固定面值', '请输入固定面值', [
                         { text: '取消' },
-                        { text: '确定', onPress: value => console.log(`输入的内容:${value}`) },
+                        { text: '确定', onPress: value => this.setState({maxAmount:value,minAmount:value}) },
                     ], 'plain-text', '');
-                }else{
+                }else if(buttonIndex === 1){
                     alert('随机面值', (
                         <List>
                             <InputItem
                                 placeholder="请输入"
                                 clear
                                 moneyKeyboardAlign="left"
+                                onChange={(value) => { this.setState({minAmount:value}) }}
                             >最小面额</InputItem>
 
                             <InputItem
                                 placeholder="请输入"
                                 clear
                                 moneyKeyboardAlign="left"
+                                onChange={(value) => { this.setState({maxAmount:value}) }}
                             >最大面额</InputItem>
-
                         </List>
                     ), [
-                        { text: '取消', onPress: () => console.log('cancel'), style: 'default' },
+                        { text: '取消', onPress: () => this.setState({minAmount:null,maxAmount:null}), style: 'default' },
                         { text: '确定', onPress: () => console.log('ok') },
                     ])
                 }
@@ -122,6 +126,29 @@ class couponAdd extends React.Component{
     render(){
         const { getFieldProps } = this.props.form;
 
+        //面值展示
+        let amount = "";
+        if(this.state.minAmount != null && this.state.maxAmount ){
+            if(this.state.minAmount === this.state.maxAmount){
+                amount = this.state.minAmount;
+            }else{
+                amount = this.state.minAmount +"-"+ this.state.maxAmount;
+            }
+        }
+
+        //商品列表
+        let shopGoodsList = this.props.shopGoodsList;
+        let goodsData = [];
+        if(typeof shopGoodsList !== "undefined" && shopGoodsList.length > 0){
+            for (let i = 0;i< shopGoodsList.length;i++){
+                let goodsItem = shopGoodsList[i];
+                let goodsObj = {
+                    label: goodsItem.name,
+                    value: goodsItem.id,
+                }
+                goodsData.push(goodsObj);
+            }
+        }
 
         return (
             <div className="shop" >
@@ -130,66 +157,74 @@ class couponAdd extends React.Component{
                     title="新增优惠券"
                 />
 
+                <WhiteSpace/>
                 <List renderHeader={() => '基本信息'} className="link-list">
                     <InputItem
-                        {...getFieldProps('bankCard', {
+                        {...getFieldProps('couponName', {
                             initialValue: '',
+                            rules: [{ required: true,message:"请输入优惠券名称"}],
                         })}
-                        type="bankCard"
                         placeholder="请输入优惠券名称"
+                        error={typeof this.state.formError["couponName"] !== "undefined"}
+                        onErrorClick={this.onErrorClick.bind(this,"couponName")}
                     >优惠券名称</InputItem>
 
                     <InputItem
-                        {...getFieldProps('bankCard', {
+                        {...getFieldProps('totalCount', {
                             initialValue: '',
+                            rules: [{ required: true,message:"请输入发放总量"}],
                         })}
-                        type="bankCard"
+                        type="number"
                         placeholder="请输入发放总量"
+                        error={typeof this.state.formError["totalCount"] !== "undefined"}
+                        onErrorClick={this.onErrorClick.bind(this,"totalCount")}
                     >发放总量</InputItem>
 
-                    <Item arrow="horizontal" onClick={this.showActionSheet}>面值</Item>
+                    <Item arrow="horizontal" extra={amount} onClick={this.showActionSheet}>面值</Item>
                 </List>
 
                 <List renderHeader={() => '设置时间'} className="link-list">
 
                     <DatePicker
-                        value={this.state.date}
-                        onChange={date => this.setState({ date })}
+                        value={this.state.startDate}
+                        onChange={date => this.setState({ startDate:date})}
                     >
                         <List.Item arrow="horizontal">生效时间</List.Item>
                     </DatePicker>
 
                     <DatePicker
-                        value={this.state.date}
-                        onChange={date => this.setState({ date })}
+                        value={this.state.endDate}
+                        onChange={date => this.setState({ endDate:date })}
                     >
                         <List.Item arrow="horizontal">过期时间</List.Item>
                     </DatePicker>
                 </List>
 
                 <List renderHeader={() => '商品设置 '} className="link-list">
-
-                    <Picker data={
-                        [
-                            {
-                                label: '百事可乐',
-                                value: '百事可乐',
-                            },
-                            {
-                                label: '可口可乐',
-                                value: '可口可乐',
-                            },
-                        ]
-                    } cols={1} {...getFieldProps('district3')} className="forss">
+                    <Picker data={goodsData}
+                            cols={1}
+                            {...getFieldProps('goodsId',{
+                                initialValue: '',
+                                rules: [{ required: true,message:"请选择可使用商品"}],
+                            })}
+                            className="forss"
+                            error={typeof this.state.formError["goodsId"] !== "undefined"}
+                            onErrorClick={this.onErrorClick.bind(this,"goodsId")}
+                            >
                         <List.Item arrow="horizontal">可使用商品</List.Item>
                     </Picker>
 
                     <TextareaItem
-                        {...getFieldProps('note3')}
+                        {...getFieldProps('couponInfo',{
+                            initialValue: '',
+                            rules: [{ required: true,message:"请输入使用说明"}],
+                        })}
                         title="使用说明"
                         placeholder="请输入使用说明"
                         autoHeight
                         labelNumber={5}
+                        error={typeof this.state.formError["couponInfo"] !== "undefined"}
+                        onErrorClick={this.onErrorClick.bind(this,"couponInfo")}
                     />
 
                 </List>
@@ -207,19 +242,17 @@ class couponAdd extends React.Component{
 const couponAddFormWrapper = createForm()(couponAdd);
 
 //组件名和组件初始化状态
-export const stateKey = "my";
+export const stateKey = "shop";
 export const initialState = {
-
-
+    shopGoodsList:[]
 };
 
 //注入state和actions
 const mapStateToProps = (state) => ({
-
-
+    shopGoodsList:state[stateKey].shopGoodsList
 });
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-
-
+    listShopGoods:actions.listShopGoods,
+    couponAdd: actions.couponAdd
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(couponAddFormWrapper);
