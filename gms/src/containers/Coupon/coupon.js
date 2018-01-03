@@ -136,22 +136,22 @@ class Coupon extends React.Component{
         const row1 = (rowData, sectionID, rowID) => {
             //面值展示
             let amount = "";
-            if(rowData.minAmount != null && rowData.maxAmount ){
-                if(rowData.minAmount === rowData.maxAmount){
-                    amount = rowData.minAmount;
+            if(rowData.coupon.minAmount != null && rowData.coupon.maxAmount ){
+                if(rowData.coupon.minAmount === rowData.coupon.maxAmount){
+                    amount = rowData.coupon.minAmount;
                 }else{
-                    amount = rowData.minAmount +"-"+ rowData.maxAmount;
+                    amount = rowData.coupon.minAmount +"-"+ rowData.coupon.maxAmount;
                 }
             }
             return (
                 <Item>
                     <div style={couponStyle}>
                         <img style={couponImg} src={require('./view/coupon_back.png')} alt=""/>
-                        <div style={couponDiv1}>{rowData.couponName}</div>
+                        <div style={couponDiv1}>{rowData.coupon.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>
-                            <div>领取人数/次数： {rowData.remainCount}/{rowData.totalCount}</div>
-                            <div>已使用： {rowData.totalCount - rowData.remainCount}</div>
+                            <div>领取人数：{rowData.coupon.totalCount - rowData.coupon.remainCount}</div>
+                            <div>已使用：{rowData.isUsed}</div>
                         </div>
                     </div>
                 </Item>
@@ -161,25 +161,24 @@ class Coupon extends React.Component{
         const row2 = (rowData, sectionID, rowID) => {
             //面值展示
             let amount = "";
-            if(rowData.minAmount != null && rowData.maxAmount ){
-                if(rowData.minAmount === rowData.maxAmount){
-                    amount = rowData.minAmount;
+            if(rowData.coupon.minAmount != null && rowData.coupon.maxAmount ){
+                if(rowData.coupon.minAmount === rowData.coupon.maxAmount){
+                    amount = rowData.coupon.minAmount;
                 }else{
-                    amount = rowData.minAmount +"-"+ rowData.maxAmount;
+                    amount = rowData.coupon.minAmount +"-"+ rowData.coupon.maxAmount;
                 }
             }
             return (
                 <Item>
                     <div style={couponStyle}>
                         <img style={couponImg} src={require('./view/coupon_back.png')} alt=""/>
-                        <div style={couponDiv1}>{rowData.couponName}</div>
+                        <div style={couponDiv1}>{rowData.coupon.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>
-                            <div>领取人数/次数： {rowData.remainCount}/{rowData.totalCount}</div>
-                            <div>已使用： {rowData.totalCount - rowData.remainCount}</div>
+                            <div>领取人数：{rowData.coupon.totalCount - rowData.coupon.remainCount}</div>
+                            <div>已使用：{rowData.isUsed}</div>
                         </div>
                     </div>
-
                 </Item>
             );
         };
@@ -187,22 +186,22 @@ class Coupon extends React.Component{
         const row3 = (rowData, sectionID, rowID) => {
             //面值展示
             let amount = "";
-            if(rowData.minAmount != null && rowData.maxAmount ){
-                if(rowData.minAmount === rowData.maxAmount){
-                    amount = rowData.minAmount;
+            if(rowData.coupon.minAmount != null && rowData.coupon.maxAmount ){
+                if(rowData.coupon.minAmount === rowData.coupon.maxAmount){
+                    amount = rowData.coupon.minAmount;
                 }else{
-                    amount = rowData.minAmount +"-"+ rowData.maxAmount;
+                    amount = rowData.coupon.minAmount +"-"+ rowData.coupon.maxAmount;
                 }
             }
             return (
                 <Item>
                     <div style={couponStyle}>
-                        <img style={couponImg} src={require('./view/coupon_back_g.png')} alt=""/>
-                        <div style={couponDiv1}>{rowData.couponName}</div>
+                        <img style={couponImg} src={require('./view/coupon_back.png')} alt=""/>
+                        <div style={couponDiv1}>{rowData.coupon.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>
-                            <div>领取人数/次数： {rowData.remainCount}/{rowData.totalCount}</div>
-                            <div>已使用： {rowData.totalCount - rowData.remainCount}</div>
+                            <div>领取人数：{rowData.coupon.totalCount - rowData.coupon.remainCount}</div>
+                            <div>已使用：{rowData.isUsed}</div>
                         </div>
                     </div>
                 </Item>

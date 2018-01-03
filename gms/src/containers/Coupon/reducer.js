@@ -15,6 +15,11 @@ export default (state = {}, action) => {
             return {...state,couponList:action.data}
         }
 
+        //分享的优惠券
+        case actions.index_shared_coupon:{
+            return {...state,couponData:action.data}
+        }
+
         default:
             return {...state}
     }

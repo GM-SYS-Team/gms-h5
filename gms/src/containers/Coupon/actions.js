@@ -22,3 +22,35 @@ export const listCoupon = (params) => {
         });
     }
 };
+
+//分享的优惠券
+export const index_shared_coupon = "index_shared_coupon";
+export const showSharedCoupon = (data) => ({
+    type: index_shared_coupon,
+    data: data
+});
+
+export const getCoupon = (params) => {
+    return (dispatch) => {
+        post("/app/coupon/user",false,params,(res)=>{
+            if(res.code === "1"){
+                dispatch(showSharedCoupon(res.data));
+            }else{
+                Toast.info(res.msg);
+            }
+        });
+    }
+};
+
+//领取优惠券
+export const reciveCoupon = (params,callBack) => {
+    return (dispatch) => {
+        post("/app/coupon/user/receive",false,params,(res)=>{
+            if(res.code === "1"){
+                callBack();
+            }else{
+                Toast.info(res.msg);
+            }
+        });
+    }
+};
