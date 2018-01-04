@@ -158,7 +158,7 @@ class Coupon extends React.Component{
                         <div style={couponDiv1}>{rowData.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>
-                            <div>领取人数/次数： {rowData.remainCount}/{rowData.totalCount}</div>
+                            <div>领取人数/次数： {rowData.totalCount - rowData.remainCount}/{rowData.totalCount}</div>
                             <div>已使用： {rowData.totalCount - rowData.remainCount}</div>
                         </div>
                     </div>
@@ -183,7 +183,7 @@ class Coupon extends React.Component{
                         <div style={couponDiv1}>{rowData.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>
-                            <div>领取人数/次数： {rowData.remainCount}/{rowData.totalCount}</div>
+                            <div>领取人数/次数： {rowData.totalCount - rowData.remainCount}/{rowData.totalCount}</div>
                             <div>已使用： {rowData.totalCount - rowData.remainCount}</div>
                         </div>
                     </div>
@@ -214,7 +214,7 @@ class Coupon extends React.Component{
                         <div style={couponDiv1}>{rowData.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>
-                            <div>领取人数/次数： {rowData.remainCount}/{rowData.totalCount}</div>
+                            <div>领取人数/次数： {rowData.totalCount - rowData.remainCount}/{rowData.totalCount}</div>
                             <div>已使用： {rowData.totalCount - rowData.remainCount}</div>
                         </div>
                     </div>

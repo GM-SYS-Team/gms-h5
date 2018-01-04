@@ -45,7 +45,6 @@ class Layout extends React.Component{
                         tintColor="#e10231"
                         barTintColor="white">
 
-                        {/*概览*/}
                         <TabBar.Item
                             icon={
                                 <div style={{
@@ -70,7 +69,6 @@ class Layout extends React.Component{
 
                         </TabBar.Item>
 
-                        {/*设备*/}
                         <TabBar.Item
                             icon={
                                 <div style={{
@@ -94,7 +92,6 @@ class Layout extends React.Component{
                             <SalesView/>
                         </TabBar.Item>
 
-                        {/*订单*/}
                         <TabBar.Item
                             icon={
                                 <div style={{

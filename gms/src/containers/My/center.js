@@ -21,6 +21,9 @@ class Center extends React.Component{
 
     render(){
 
+        //1商家2个人
+        let userType = localStorage.getItem("userType");
+
         return (
             <div className="my" >
 
@@ -46,10 +49,10 @@ class Center extends React.Component{
 
                 <WhiteSpace/>
                 <List className="link-list">
-                    <Link to="/draw">
+                    <Link to="/draw" style={{display:userType === "2"?"none":""}}>
                         <Item arrow="horizontal" onClick={() => {}}>店铺信息</Item>
                     </Link>
-                    <Link to="/my/coupon">
+                    <Link to="/my/coupon" style={{display:userType === "1"?"none":""}}>
                         <Item extra="" arrow="horizontal" onClick={() => {}}>我的优惠券</Item>
                     </Link>
                 </List>

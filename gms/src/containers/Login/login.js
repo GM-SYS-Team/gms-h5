@@ -54,13 +54,14 @@ class Login extends React.Component{
             <div className="login">
                 <TopBar
                     title="登录"
+                    hideback="true"
                 />
 
                 <WingBlank>
 
                     {/*logo*/}
                     <div style={{textAlign:"center",margin:"50px 0"}}>
-                        <img  style={{width:"40%"}} src={require('./view/logo.png')} alt=""/>
+                        <img  style={{width:"30%"}} src={require('./view/logo.png')} alt=""/>
                     </div>
 
                     <WingBlank size="lg" style={{margin:"10px",marginTop:20}}>
