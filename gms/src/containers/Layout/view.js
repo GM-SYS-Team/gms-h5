@@ -19,6 +19,16 @@ class Layout extends React.Component{
         if(typeof savedSelectedTab !== "undefined"){
             selectedTab = savedSelectedTab;
         }
+
+        let st = this.props.location.query.selectedTab;
+        if(typeof st !== "undefined" && st !== null){
+            localStorage.setItem("selectedTab",st);
+            selectedTab = st;
+        }else{
+            localStorage.removeItem("selectedTab");
+            selectedTab = st;
+        }
+
         this.state = {
             selectedTab: selectedTab
         };
