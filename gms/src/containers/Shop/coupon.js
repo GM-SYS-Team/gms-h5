@@ -117,7 +117,8 @@ class Coupon extends React.Component{
 
         let couponStyle = {
             position: "relative",
-            color:"#fff"
+           /* backgroundColor:"#ff5150",*/
+            color:"#333"
         }
         let couponImg ={
             width:"100%",
@@ -127,12 +128,14 @@ class Coupon extends React.Component{
             position: "absolute",
             top:"22%",
             left:"10%",
+            fontSize:18,
+            fontWeight:"bold",
         }
         let couponDiv2 = {
             position: "absolute",
-            top:"33%",
-            right:"10%",
-            fontSize:20
+            top:"25%",
+            right:"15%",
+            fontSize:22
         }
         let couponDiv3 = {
             position: "absolute",
@@ -154,7 +157,7 @@ class Coupon extends React.Component{
             return (
                 <Item>
                     <div style={couponStyle}>
-                        <img style={couponImg} src={require('./view/coupon_back.png')} alt=""/>
+                        <img style={couponImg} src={rowData.quickMark} alt=""/>
                         <div style={couponDiv1}>{rowData.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>
@@ -176,10 +179,15 @@ class Coupon extends React.Component{
                     amount = rowData.minAmount +"-"+ rowData.maxAmount;
                 }
             }
+            //共享
+            let shared = true;
+            if(typeof rowData.status === "undefined" ||  rowData.status == null){
+                shared = false;
+            }
             return (
                 <Item>
                     <div style={couponStyle}>
-                        <img style={couponImg} src={require('./view/coupon_back.png')} alt=""/>
+                        <img style={couponImg} src={rowData.quickMark} alt=""/>
                         <div style={couponDiv1}>{rowData.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>
@@ -190,7 +198,7 @@ class Coupon extends React.Component{
 
                     <div style={{textAlign:"right"}}>
                         <WhiteSpace/>
-                        <Button type="ghost" inline size="small" style={{ marginRight: '4px' }} onClick={this.shareCoupon.bind(this,rowData.id)}>共享该优惠券</Button>
+                        <Button disabled={shared} type="ghost" inline size="small" style={{ marginRight: '4px' }} onClick={this.shareCoupon.bind(this,rowData.id)}>共享该优惠券</Button>
                     </div>
 
                 </Item>
@@ -210,7 +218,7 @@ class Coupon extends React.Component{
             return (
                 <Item>
                     <div style={couponStyle}>
-                        <img style={couponImg} src={require('./view/coupon_back_g.png')} alt=""/>
+                        <img style={couponImg} src={rowData.quickMark} alt=""/>
                         <div style={couponDiv1}>{rowData.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>

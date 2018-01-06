@@ -17,6 +17,15 @@ const alert = Modal.alert;
 /*领取优惠券*/
 class Draw extends React.Component{
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showMainPart:true,
+            showSharePart:false
+        }
+    }
+
     componentDidMount(){
         //加载优惠券
         let queryParam = this.props.location.query;
@@ -26,16 +35,15 @@ class Draw extends React.Component{
         });
     }
 
-    reciveCoupon = () =>{
+    reciveCoupon = (shopId,couponId) =>{
         //领取
-        let queryParam = this.props.location.query;
-        if(queryParam.shopId == null || queryParam.couponId == null){
+        if(shopId == null || couponId == null){
             Toast.info("参数缺失");
             return;
         }
         this.props.reciveCoupon({
-            shopId:queryParam.shopId,
-            couponId:queryParam.couponId
+            shopId:shopId,
+            couponId:couponId
         },() =>{
             alert('领取成功', '恭喜您领取成功', [
                 {
@@ -47,11 +55,40 @@ class Draw extends React.Component{
                 },
             ])
         });
-
-
     }
 
     render(){
+
+
+        let couponStyle = {
+            position: "relative",
+            /* backgroundColor:"#ff5150",*/
+            color:"#333"
+        }
+        let couponImg ={
+            width:"100%",
+            height:"auto",
+        }
+        let couponDiv1 = {
+            position: "absolute",
+            top:"22%",
+            left:"10%",
+            fontSize:18,
+            fontWeight:"bold",
+        }
+        let couponDiv2 = {
+            position: "absolute",
+            top:"25%",
+            right:"15%",
+            fontSize:22
+        }
+        let couponDiv3 = {
+            position: "absolute",
+            top:"45%",
+            left:"10%",
+        }
+
+
         let couponData = this.props.couponData;
         let coupon = {};
         let shareCoupon = {};
@@ -82,7 +119,9 @@ class Draw extends React.Component{
         if(typeof coupon.expiryDateStop !== "undefined"){
             endDate = new Date(coupon.expiryDateStop);
         }
-        couponDate = startDate.Format("yyyy-MM-dd HH:mm:ss") +"-" + endDate.Format("yyyy-MM-dd HH:mm:ss");
+        /*couponDate = startDate.Format("yyyy-MM-dd HH:mm:ss") +"-" + endDate.Format("yyyy-MM-dd HH:mm:ss");*/
+        couponDate = endDate.Format("yyyy-MM-dd HH:mm:ss");
+
 
         //共享优惠券
         let sharecouponAmount = "";
@@ -102,72 +141,89 @@ class Draw extends React.Component{
         if(typeof shareCoupon.expiryDateStop !== "undefined"){
             shareendDate = new Date(shareCoupon.expiryDateStop);
         }
-        sharecouponDate = sharestartDate.Format("yyyy-MM-dd HH:mm:ss") +"-" + shareendDate.Format("yyyy-MM-dd HH:mm:ss");
+        /*sharecouponDate = sharestartDate.Format("yyyy-MM-dd HH:mm:ss") +"-" + shareendDate.Format("yyyy-MM-dd HH:mm:ss");*/
+        sharecouponDate = shareendDate.Format("yyyy-MM-dd HH:mm:ss");
+
+        let hideMain = false;
+        let hideShare = false;
+        if(typeof coupon.couponName === "undefined"|| coupon.couponName == null){
+            hideMain = true;
+        }
+        if(typeof shareCoupon.couponName === "undefined" || shareCoupon.couponName == null){
+            hideShare = true;
+        }
 
         return (
             <div className="draw">
                 <TopBar
                     title="领取优惠券"
+                    hideback="true"
                 />
 
-                <WingBlank>
+                <WingBlank style={{display:hideMain?"none":""}}>
                     <WhiteSpace/>
-                    <Card style={{backgroundColor:'#d2100b',color:'#fff'}}>
-                        <WingBlank>
-                            <WhiteSpace/>
-                            <span style={{fontSize:14}}>{coupon.couponName}</span>
-                        </WingBlank>
-                        <Card.Header
-                            thumb="https://cloud.githubusercontent.com/assets/1698185/18039916/f025c090-6dd9-11e6-9d86-a4d48a1bf049.png"
-                            title={
-                                <div style={{color:"#fff",marginLeft:10}}>
-                                    <div style={{fontSize:25}}>￥{couponAmount}</div>
-                                    <div style={{fontSize:12,marginTop:5}}>
-                                        有效期:{couponDate}</div>
-                                </div>
-                            }
-                        />
+                    <Card style={{color:'#333'}} onClick={() => this.setState({showMainPart:true ,showSharePart:false})}>
+                        <div style={couponStyle}>
+                            <img style={couponImg} src={coupon.quickMark} alt=""/>
+                            <div style={couponDiv1}>{coupon.couponName}</div>
+                            <div style={couponDiv2}></div>
+                            <div style={couponDiv3}>
+                                <div style={{fontSize:20}}>￥{couponAmount}</div>
+                                <div>有效期:{couponDate}</div>
+                            </div>
+                        </div>
                     </Card>
-                    <WhiteSpace/>
-                    <Card>
-                        <Card.Body>
-                            <div>使用说明</div>
-                            {coupon.info}
-                        </Card.Body>
-                    </Card>
+                    <div style={{display:this.state.showMainPart?"":"none"}}>
+                        <WhiteSpace/>
+                        <Card>
+                            <Card.Body>
+                                <div>使用说明</div>
+                                {coupon.info}
+                            </Card.Body>
+                        </Card>
+                        <WhiteSpace/>
+                        <Button style={{height:40,lineHeight:"40px"}}
+                                type="primary"
+                                onClick={this.reciveCoupon.bind(this,coupon.shopId,coupon.id)}
+                        >点击领取</Button>
+                    </div>
+                </WingBlank>
 
 
-                    <WhiteSpace/>
 
-                    <Button style={{height:40,lineHeight:"40px"}}
-                            type="primary"
-                            onClick={this.reciveCoupon}
-                    >点击领取</Button>
+                <WingBlank style={{display:hideShare?"none":""}}>
 
-                    <WhiteSpace/>
                     <WhiteSpace/>
                     <span>共享优惠</span>
+                    <WhiteSpace/>
 
-                    <Card style={{backgroundColor:'#668ced',color:'#fff'}}>
-                        <WingBlank>
-                            <WhiteSpace/>
-                            <span style={{fontSize:14}}>{shareCoupon.couponName}</span>
-                        </WingBlank>
-                        <Card.Header
-                            thumb="https://cloud.githubusercontent.com/assets/1698185/18039916/f025c090-6dd9-11e6-9d86-a4d48a1bf049.png"
-                            title={
-                                <div style={{color:"#fff",marginLeft:10}}>
-                                    <div style={{fontSize:25}}>￥{sharecouponAmount}</div>
-                                    <div style={{fontSize:12,marginTop:5}}>
-                                        有效期:{sharecouponDate}</div>
-                                </div>
-                            }
-                        />
-                        {/*<WingBlank>
-                            <WhiteSpace/>
-                            <span style={{fontSize:12}}>武汉市xxxx产业园</span>
-                        </WingBlank>*/}
+                    <Card style={{color:'#333'}} onClick={() => this.setState({showMainPart:false ,showSharePart:true})}>
+                        <div style={couponStyle}>
+                            <img style={couponImg} src={shareCoupon.quickMark} alt=""/>
+                            <div style={couponDiv1}>{shareCoupon.couponName}</div>
+                            <div style={couponDiv2}></div>
+                            <div style={couponDiv3}>
+                                <div style={{fontSize:20}}>￥{sharecouponAmount}</div>
+                                <div>有效期:{sharecouponDate}</div>
+                            </div>
+                        </div>
                     </Card>
+
+                    <div style={{display:this.state.showSharePart?"":"none"}}>
+                        <WhiteSpace/>
+                        <Card>
+                            <Card.Body>
+                                <div>使用说明</div>
+                                {shareCoupon.info}
+                            </Card.Body>
+                        </Card>
+                        <WhiteSpace/>
+                        <Button style={{height:40,lineHeight:"40px"}}
+                                type="primary"
+                                onClick={this.reciveCoupon.bind(this,shareCoupon.shopId,shareCoupon.id)}
+                        >点击领取</Button>
+                    </div>
+
 
                 </WingBlank>
 

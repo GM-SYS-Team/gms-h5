@@ -1,5 +1,5 @@
 import { browserHistory } from 'react-router'
-import {post} from '../../utils/ajax'
+import {post, uploadImg} from '../../utils/ajax'
 import {getCookie,setCookie} from '../../utils/cookie';
 
 import {Toast } from 'antd-mobile';
@@ -24,12 +24,12 @@ export const modifyNickName = (params,callBack) => {
     }
 };
 
-//修改昵称
-export const changeHeadImg = (imgStr) => {
+//修改头像
+export const changeHeadImg = (file,callBack) => {
     return (dispatch) => {
-        post("/vm-web/test/img",false,{baseStr:imgStr},(res)=>{
+        uploadImg("/app/user/picture/upload",file,1,(res)=>{
             if(res.code === "1"){
-                Toast.info("修改成功");
+                callBack(res.msg);
             }else{
                 Toast.info(res.msg);
             }

@@ -1,5 +1,5 @@
 import { browserHistory } from 'react-router'
-import {post} from '../../utils/ajax'
+import {post, uploadImg} from '../../utils/ajax'
 import {getCookie,setCookie} from '../../utils/cookie';
 
 import {Toast } from 'antd-mobile';
@@ -89,6 +89,22 @@ export const shopGoodsAdd = (params) => {
         });
     }
 };
+
+//上传商品图片
+export const uploadGoodsImg = (file,callBack) => {
+    return (dispatch) => {
+        //2是商品
+        uploadImg("/app/user/picture/upload",file,2,(res)=>{
+            if(res.code === "1"){
+                callBack(res.msg);
+            }else{
+                Toast.info(res.msg);
+            }
+        });
+    }
+};
+
+
 
 //店铺商品添删除
 export const delShopGoods = (params,callBack) => {

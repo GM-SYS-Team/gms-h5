@@ -3,9 +3,11 @@ import {stateKey} from "./coupon";
 
 import draw from './draw.js';
 import coupon from './coupon.js';
+import destroy from './destroy.js';
 
 import {initialState as initialStateDraw } from './draw.js';
 import {initialState as initialStatecoupon } from './coupon.js';
+import {initialState as initialStateDestroy } from './destroy.js';
 
 import reducer from './reducer';
 
@@ -20,9 +22,11 @@ import reducer from './reducer';
 const initialState = Object.assign(
     initialStateDraw,
     initialStatecoupon,
+    initialStateDestroy,
 );
 
 export {
     draw,
     coupon,
+    destroy,
     actions, reducer, initialState,stateKey};

@@ -44,7 +44,10 @@ class Login extends React.Component{
     onChange = (files, type, index) => {
         this.setState({files:[files[files.length-1]]});
         //执行上传
-        this.props.changeHeadImg(this.state.files[0].url);
+        this.props.changeHeadImg(this.state.files[0].file,(msg)=>{
+            localStorage.setItem("imgUrl",msg);
+            Toast.info("修改成功");
+        });
     }
 
 

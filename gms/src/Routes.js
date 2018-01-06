@@ -90,6 +90,12 @@ const getDrawPage = (nextState, callback) => {
         callback(null, require('./containers/Coupon/index').draw);
     }, 'draw');
 };
+//销毁优惠券
+const getDestroyPage = (nextState, callback) => {
+    require.ensure([], function(require) {
+        callback(null, require('./containers/Coupon/index').destroy);
+    }, 'destroy');
+};
 const getCouponPage = (nextState, callback) => {
     require.ensure([], function(require) {
         callback(null, require('./containers/Coupon/index').coupon);
@@ -194,6 +200,7 @@ const Routes = () => (
             <Route path="/editUserInfo" getComponent={getEditUserInfoPage} />
 
             <Route path="/draw" getComponent={getDrawPage} />
+            <Route path="/destroy" getComponent={getDestroyPage} />
             <Route path="/my/coupon" getComponent={getCouponPage} />
 
 

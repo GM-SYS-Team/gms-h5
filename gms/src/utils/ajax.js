@@ -70,6 +70,31 @@ export const post = (url,isJSON,params,callBack) => {
     })
 }
 
+//上传图片
+export const uploadImg = (url,file,fileType,callBack) => {
+    //上传配置
+    let config = {
+        headers: {'Content-Type': 'multipart/form-data'}
+    }
+
+    let param = new FormData();  // 创建form对象
+    param.append('pictureFile', file, file.name);  // 通过append向form对象添加数据
+    param.append('chunk', '0'); // 添加form表单中其他数据
+    param.append('access_token', localStorage.getItem("userToken"));//用户鉴权
+    param.append('fileType',fileType);
+
+    axios.post("/app/user/picture/upload",param,config).then(function (res) {
+        if(res.data.code === 2){
+            browserHistory.push("/login")
+        }else{
+            callBack(res.data);
+        }
+    }).catch(function (err) {
+        console.error(url+"请求失败");
+        console.error(err);
+    })
+}
+
 export const put = (url,params,callBack) => {
     axios.put(url,params).then(function (res) {
         callBack(res.data);

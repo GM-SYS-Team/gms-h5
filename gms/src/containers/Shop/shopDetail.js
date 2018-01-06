@@ -53,7 +53,7 @@ class Detail extends React.Component{
         let couponUrl = "/shop/"+this.props.params.id+"/coupon";
 
         return (
-            <div className="shop" >
+            <div className="shop_detail" >
 
                 <TopBar
                     title="店铺管理"
@@ -74,12 +74,13 @@ class Detail extends React.Component{
                 </List>
 
                 <Modal
+                    className="shop_detail_modal"
                     visible={this.state.modal1}
                     transparent
-                    maskClosable={false}
+                    maskClosable={true}
                     onClose={this.onClose('modal1')}
                     title=""
-                    footer={[{ text: '关闭', onPress: () => { console.log('ok'); this.onClose('modal1')(); } }]}
+                    /*footer={[{ text: '关闭', onPress: () => { console.log('ok'); this.onClose('modal1')(); } }]}*/
                     wrapProps={{ onTouchStart: this.onWrapTouchStart }}
                 >
                     <img style={{width:"100%"}} src={shopDetail.quickMark} alt=""/>

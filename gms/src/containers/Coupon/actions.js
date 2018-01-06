@@ -54,3 +54,16 @@ export const reciveCoupon = (params,callBack) => {
         });
     }
 };
+
+//领取优惠券
+export const destroyCoupon = (params,callBack) => {
+    return (dispatch) => {
+        post("/app/coupon/user/sale",false,params,(res)=>{
+            if(res.code === "1"){
+                callBack(true,"");
+            }else{
+                callBack(false,res.msg);
+            }
+        });
+    }
+};

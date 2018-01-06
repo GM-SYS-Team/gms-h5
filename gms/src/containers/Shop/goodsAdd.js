@@ -4,12 +4,13 @@ import {connect} from 'react-redux';
 import * as actions from './actions';
 import './view/style.less';
 
-import {WhiteSpace, WingBlank,Button, List,InputItem,ImagePicker,Toast } from 'antd-mobile';
+import {WhiteSpace, WingBlank,Button, List,InputItem,ImagePicker,Toast,ActivityIndicator } from 'antd-mobile';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
 import {Link} from 'react-router';
 
 import { createForm } from 'rc-form';
+import {uploadImg} from "../../utils/ajax";
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -22,7 +23,8 @@ class GoodsAdd extends React.Component{
         this.state = {
             formError:{},
             files: [],
-            pictureAddress:""
+            pictureAddress:"",
+            loading:false
         }
     }
 
@@ -36,6 +38,7 @@ class GoodsAdd extends React.Component{
                 }
                 values.shopId = this.props.params.id;
                 values.pictureAddress = this.state.pictureAddress;
+                values.files = this.state.files;
                 this.props.shopGoodsAdd(values);
             }else{
                 this.setState({formError: error})
@@ -51,15 +54,14 @@ class GoodsAdd extends React.Component{
 
     //上传图片
     onChange = (files, type, index) => {
-        console.log(files, type, index);
-        //TODO 后台的上传图片
-        this.setState({
-            files:files,
-            /*pictureAddress:files[0].url*/
-
-            pictureAddress:"123"
+        this.setState({loading:true})
+        this.props.uploadGoodsImg(files[0].file,(msg)=>{
+            this.setState({
+                files:files,
+                pictureAddress:msg,
+                loading:false
+            });
         });
-
     }
 
     render(){
@@ -116,6 +118,8 @@ class GoodsAdd extends React.Component{
                     <Button style={{height:40,lineHeight:"40px"}} type="primary" onClick={this.submit}>确定</Button>
                 </WingBlank>
 
+                <ActivityIndicator toast text="上传中..." animating={this.state.loading}/>
+
             </div>
         );
     }
@@ -136,6 +140,7 @@ const mapStateToProps = (state) => ({
 
 });
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    shopGoodsAdd: actions.shopGoodsAdd
+    shopGoodsAdd: actions.shopGoodsAdd,
+    uploadGoodsImg: actions.uploadGoodsImg
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(GoodsAddFormWrapper);

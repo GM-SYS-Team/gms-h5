@@ -146,7 +146,7 @@ class Coupon extends React.Component{
             return (
                 <Item>
                     <div style={couponStyle}>
-                        <img style={couponImg} src={require('./view/coupon_back.png')} alt=""/>
+                        <img style={couponImg} src={rowData.coupon.quickMark} alt=""/>
                         <div style={couponDiv1}>{rowData.coupon.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>
@@ -171,7 +171,7 @@ class Coupon extends React.Component{
             return (
                 <Item>
                     <div style={couponStyle}>
-                        <img style={couponImg} src={require('./view/coupon_back.png')} alt=""/>
+                        <img style={couponImg} src={rowData.coupon.quickMark} alt=""/>
                         <div style={couponDiv1}>{rowData.coupon.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>
@@ -196,7 +196,7 @@ class Coupon extends React.Component{
             return (
                 <Item>
                     <div style={couponStyle}>
-                        <img style={couponImg} src={require('./view/coupon_back.png')} alt=""/>
+                        <img style={couponImg} src={rowData.coupon.quickMark} alt=""/>
                         <div style={couponDiv1}>{rowData.coupon.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>
@@ -241,8 +241,6 @@ class Coupon extends React.Component{
                     </div>
 
                     <div>
-
-
                         <ListView
                             ref={el => this.lv = el}
                             dataSource={this.state.dataSource1}
@@ -260,11 +258,9 @@ class Coupon extends React.Component{
                             onEndReached={this.onEndReached}
                             onEndReachedThreshold={10}
                         />
-
                     </div>
 
                     <div>
-
                         <ListView
                             ref={el => this.lv = el}
                             dataSource={this.state.dataSource2}
@@ -282,7 +278,6 @@ class Coupon extends React.Component{
                             onEndReached={this.onEndReached}
                             onEndReachedThreshold={10}
                         />
-
                     </div>
 
                 </Tabs>
