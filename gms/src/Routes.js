@@ -58,6 +58,17 @@ const getYouzhuanbeiPage = (nextState, callback) => {
         callback(null, require('./containers/Index/index').youzhuanbei);
     }, 'youzhuanbei');
 };
+const getShequPage = (nextState, callback) => {
+    require.ensure([], function(require) {
+        callback(null, require('./containers/Index/index').shequ);
+    }, 'shequ');
+};
+const getGuangdianPage = (nextState, callback) => {
+    require.ensure([], function(require) {
+        callback(null, require('./containers/Index/index').guangdian);
+    }, 'guangdian');
+};
+
 
 
 
@@ -160,6 +171,8 @@ const isLogin = (nextState, replace) => {
 
     //使用
     if(typeof userToken === "undefined" || userToken === null){
+        let lastPath = nextState.location.pathname;
+        localStorage.setItem("lastPath",lastPath);
         replace("/login");
     }else {
         resetCookieExpireDate("userToken",20);
@@ -195,6 +208,8 @@ const Routes = () => (
 
             <Route path="/index" getComponent={getIndexPage} />
             <Route path="/youzhuanbei" getComponent={getYouzhuanbeiPage} />
+            <Route path="/index/shequ" getComponent={getShequPage} />
+            <Route path="/index/guangdian" getComponent={getGuangdianPage} />
 
             <Route path="/my" getComponent={getCenterPage} />
             <Route path="/editUserInfo" getComponent={getEditUserInfoPage} />

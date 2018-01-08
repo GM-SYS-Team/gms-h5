@@ -2,10 +2,14 @@ import * as actions from './actions.js';
 
 import view from './view.js';
 import youzhuanbei from './youzhuanbei.js';
+import shequ from './shequ.js';
+import guangdian from './guangdian.js';
 
 import {stateKey} from './view.js';
 import {initialState as initialStateIndex} from './view.js';
 import {initialState as initialStateYouzhuanbei} from './youzhuanbei.js';
+import {initialState as initialStateShequ} from './shequ.js';
+import {initialState as initialStateGuangdian} from './guangdian.js';
 import reducer from './reducer';
 
 /**
@@ -19,9 +23,13 @@ import reducer from './reducer';
 const initialState = Object.assign(
     initialStateIndex,
     initialStateYouzhuanbei,
+    initialStateShequ,
+    initialStateGuangdian,
 );
 
 export {
     view,
     youzhuanbei,
+    shequ,
+    guangdian,
     actions, reducer, initialState,stateKey};

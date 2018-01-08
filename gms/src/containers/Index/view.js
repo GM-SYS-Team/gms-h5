@@ -19,12 +19,27 @@ class Index extends React.Component{
         if(index === 0){
             browserHistory.push("/youzhuanbei");
         }
+        if(index === 1){
+            browserHistory.push("/index/shequ?title=社区");
+        }
+        if(index === 2){
+            browserHistory.push("/index/guangdian");
+        }
+        if(index === 3){
+            browserHistory.push("/index/shequ?title=拓展");
+        }
+        if(index === 4){
+            browserHistory.push("/index/shequ?title=印章");
+        }
+        if(index === 5){
+            browserHistory.push("/index/shequ?title=微商");
+        }
     }
 
 
     render(){
 
-        const data = Array.from([
+        let data = [
             {
                 icon: require('./view/icon1.png'),
                 text: `国码优赚呗`,
@@ -49,7 +64,14 @@ class Index extends React.Component{
                 icon: require('./view/icon6.png'),
                 text: `微商`,
             }
-        ]);
+        ];
+
+        //1商家2个人
+        let userType = localStorage.getItem("userType");
+        if(typeof userType !== "undefined" && userType == "2"){
+            data.splice(0,1);
+        }
+
 
         let isShowLogin = typeof localStorage.getItem("userToken") === "undefined";
 

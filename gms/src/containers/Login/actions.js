@@ -26,7 +26,13 @@ export const login = (values) => {
 
                 setCookie("userToken",res.data.uuid,20);
 
-                browserHistory.push("/");
+                let lastPath = localStorage.getItem("lastPath");
+                if(typeof lastPath !== "undefined" && lastPath !== null){
+                    browserHistory.push(lastPath);
+                }else{
+                    browserHistory.push("/");
+                }
+
             }else{
                 Toast.info(res.msg);
             }
