@@ -109,7 +109,7 @@ class Coupon extends React.Component{
 
         let couponStyle = {
             position: "relative",
-            color:"#fff"
+            color:"#000"
         }
         let couponImg ={
             width:"100%",
@@ -159,6 +159,7 @@ class Coupon extends React.Component{
         };
 
         const row2 = (rowData, sectionID, rowID) => {
+            console.log(rowData)
             //面值展示
             let amount = "";
             if(rowData.coupon.minAmount != null && rowData.coupon.maxAmount ){
