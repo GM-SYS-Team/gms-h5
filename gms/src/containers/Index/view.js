@@ -16,7 +16,14 @@ class Index extends React.Component{
 
 
     gridClick = (index) =>{
+        let userType = localStorage.getItem("userType");
+
+        if(typeof userType !== "undefined" && userType == "2"){
+            index++;
+        }
+
         if(index === 0){
+
             browserHistory.push("/youzhuanbei");
         }
         if(index === 1){

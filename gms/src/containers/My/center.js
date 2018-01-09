@@ -29,6 +29,7 @@ class Center extends React.Component{
 
                 <TopBar
                     title="个人信息"
+                    hideback="true"
                 />
 
                 <Card full>
