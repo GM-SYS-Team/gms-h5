@@ -8,6 +8,7 @@ import {WhiteSpace, WingBlank,Tabs, List,Button,Badge,ListView } from 'antd-mobi
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
 import {Link} from 'react-router';
+import '../../utils/DateFormat'
 
 import { createForm } from 'rc-form';
 const Item = List.Item;
@@ -136,6 +137,7 @@ class Coupon extends React.Component{
         const row1 = (rowData, sectionID, rowID) => {
             //面值展示
             let amount = "";
+            let coupon = rowData.coupon;
             if(rowData.coupon.minAmount != null && rowData.coupon.maxAmount ){
                 if(rowData.coupon.minAmount === rowData.coupon.maxAmount){
                     amount = rowData.coupon.minAmount;
@@ -143,6 +145,17 @@ class Coupon extends React.Component{
                     amount = rowData.coupon.minAmount +"-"+ rowData.coupon.maxAmount;
                 }
             }
+            //开始结束时间
+            let startDate = new Date();
+            let endDate = new Date();
+            if(typeof coupon.expiryDateStart !== "undefined"){
+                startDate = new Date(coupon.expiryDateStart);
+            }
+            if(typeof coupon.expiryDateStop !== "undefined"){
+                endDate = new Date(coupon.expiryDateStop);
+            }
+            let couponStartDate = startDate.Format("yyyy-MM-dd HH:mm:ss");
+            let couponEndDate = endDate.Format("yyyy-MM-dd HH:mm:ss");
             return (
                 <Item>
                     <div style={couponStyle}>
@@ -150,8 +163,8 @@ class Coupon extends React.Component{
                         <div style={couponDiv1}>{rowData.coupon.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>
-                            <div>领取人数：{rowData.coupon.totalCount - rowData.coupon.remainCount}</div>
-                            <div>已使用：{rowData.isUsed}</div>
+                            <div>开始时间：{couponStartDate}</div>
+                            <div>结束时间：{couponEndDate}</div>
                         </div>
                     </div>
                 </Item>
@@ -159,8 +172,8 @@ class Coupon extends React.Component{
         };
 
         const row2 = (rowData, sectionID, rowID) => {
-            console.log(rowData)
             //面值展示
+            let coupon = rowData.coupon;
             let amount = "";
             if(rowData.coupon.minAmount != null && rowData.coupon.maxAmount ){
                 if(rowData.coupon.minAmount === rowData.coupon.maxAmount){
@@ -169,6 +182,17 @@ class Coupon extends React.Component{
                     amount = rowData.coupon.minAmount +"-"+ rowData.coupon.maxAmount;
                 }
             }
+            //开始结束时间
+            let startDate = new Date();
+            let endDate = new Date();
+            if(typeof coupon.expiryDateStart !== "undefined"){
+                startDate = new Date(coupon.expiryDateStart);
+            }
+            if(typeof coupon.expiryDateStop !== "undefined"){
+                endDate = new Date(coupon.expiryDateStop);
+            }
+            let couponStartDate = startDate.Format("yyyy-MM-dd HH:mm:ss");
+            let couponEndDate = endDate.Format("yyyy-MM-dd HH:mm:ss");
             return (
                 <Item>
                     <div style={couponStyle}>
@@ -176,8 +200,8 @@ class Coupon extends React.Component{
                         <div style={couponDiv1}>{rowData.coupon.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>
-                            <div>领取人数：{rowData.coupon.totalCount - rowData.coupon.remainCount}</div>
-                            <div>已使用：{rowData.isUsed}</div>
+                            <div>开始时间：{couponStartDate}</div>
+                            <div>结束时间：{couponEndDate}</div>
                         </div>
                     </div>
                 </Item>
@@ -186,6 +210,7 @@ class Coupon extends React.Component{
 
         const row3 = (rowData, sectionID, rowID) => {
             //面值展示
+            let coupon = rowData.coupon;
             let amount = "";
             if(rowData.coupon.minAmount != null && rowData.coupon.maxAmount ){
                 if(rowData.coupon.minAmount === rowData.coupon.maxAmount){
@@ -194,6 +219,17 @@ class Coupon extends React.Component{
                     amount = rowData.coupon.minAmount +"-"+ rowData.coupon.maxAmount;
                 }
             }
+            //开始结束时间
+            let startDate = new Date();
+            let endDate = new Date();
+            if(typeof coupon.expiryDateStart !== "undefined"){
+                startDate = new Date(coupon.expiryDateStart);
+            }
+            if(typeof coupon.expiryDateStop !== "undefined"){
+                endDate = new Date(coupon.expiryDateStop);
+            }
+            let couponStartDate = startDate.Format("yyyy-MM-dd HH:mm:ss");
+            let couponEndDate = endDate.Format("yyyy-MM-dd HH:mm:ss");
             return (
                 <Item>
                     <div style={couponStyle}>
@@ -201,8 +237,8 @@ class Coupon extends React.Component{
                         <div style={couponDiv1}>{rowData.coupon.couponName}</div>
                         <div style={couponDiv2}>￥{amount}</div>
                         <div style={couponDiv3}>
-                            <div>领取人数：{rowData.coupon.totalCount - rowData.coupon.remainCount}</div>
-                            <div>已使用：{rowData.isUsed}</div>
+                            <div>开始时间：{couponStartDate}</div>
+                            <div>结束时间：{couponEndDate}</div>
                         </div>
                     </div>
                 </Item>

@@ -32,6 +32,13 @@ const getRegPage = (nextState, callback) => {
     }, 'reg');
 };
 
+//注册商家
+const getRegBusPage = (nextState, callback) => {
+    require.ensure([], function(require) {
+        callback(null, require('./containers/Login/index').regBus);
+    }, 'regBus');
+};
+
 //忘记密码
 const getForgetPage = (nextState, callback) => {
     require.ensure([], function(require) {
@@ -39,6 +46,12 @@ const getForgetPage = (nextState, callback) => {
     }, 'forget');
 };
 
+//三方页面
+const getIframePage = (nextState, callback) => {
+    require.ensure([], function(require) {
+        callback(null, require('./containers/Login/index').frame);
+    }, 'frame');
+};
 
 
 
@@ -201,7 +214,9 @@ const Routes = () => (
 
         <Route path="/login" getComponent={getLoginPage}></Route>
         <Route path="/reg" getComponent={getRegPage}></Route>
+        <Route path="/regBus" getComponent={getRegBusPage}></Route>
         <Route path="/forget" getComponent={getForgetPage}></Route>
+        <Route path="/iframe" getComponent={getIframePage}></Route>
 
         <Route path="/" onEnter={isLogin}>
             <IndexRoute getComponent={getLayoutPage} />

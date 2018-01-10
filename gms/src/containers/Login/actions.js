@@ -68,8 +68,27 @@ export const reg = (params) => {
     return (dispatch) => {
         post(url,false,params,(res)=>{
             if( res.code === "1"){
-                Toast.info("注册成功",3,() =>{
-                    browserHistory.push("/login");
+                Toast.info("注册成功",1,() =>{
+                    // browserHistory.push("/login");
+                    //跳转到xx页面
+                    browserHistory.push("https://h5.youzan.com/v2/ump/promocard/fetch?alias=13ct9s2fh");
+
+                });
+            }else{
+                Toast.info(res.msg,1);
+            }
+        });
+    }
+};
+
+//注册
+export const regBus = (params) => {
+    return (dispatch) => {
+        post("/app/user/beShoper",false,params,(res)=>{
+            if( res.code === "1"){
+                Toast.info("注册商家成功",1,() =>{
+                    localStorage.setItem("userType","1");
+                    browserHistory.push("/");
                 });
             }else{
                 Toast.info(res.msg,1);

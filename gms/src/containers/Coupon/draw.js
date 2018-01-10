@@ -9,6 +9,7 @@ import { WingBlank,List, InputItem, WhiteSpace, Button, Modal , Toast,Card  } fr
 import { createForm } from 'rc-form';
 import TopBar from "../../components/Container/TopBar";
 import '../../utils/DateFormat'
+import {getCookie, resetCookieExpireDate} from "../../utils/cookie";
 
 
 const alert = Modal.alert;
@@ -19,6 +20,12 @@ class Draw extends React.Component{
 
     constructor(props) {
         super(props);
+
+        //使用
+        const userToken = getCookie("userToken");
+        if(typeof userToken === "undefined" || userToken === null){
+            browserHistory.push("/login");
+        }
 
         this.state = {
             showMainPart:true,

@@ -3,11 +3,15 @@ import {stateKey} from "./login";
 
 import login from './login.js';
 import reg from './reg.js';
+import regBus from './regBus.js';
 import forget from './forget.js';
+import frame from './iframe.js';
 
 import {initialState as initialStateLogin } from './login.js';
 import {initialState as initialStateReg } from './reg.js';
+import {initialState as initialStateRegBus } from './regBus.js';
 import {initialState as initialStateForget } from './forget.js';
+import {initialState as initialStateFrame } from './iframe.js';
 
 import reducer from './reducer';
 
@@ -23,10 +27,14 @@ const initialState = Object.assign(
     initialStateLogin,
     initialStateReg,
     initialStateForget,
+    initialStateRegBus,
+    initialStateFrame,
 );
 
 export {
     login,
     reg,
+    regBus,
     forget,
+    frame,
     actions, reducer, initialState,stateKey};

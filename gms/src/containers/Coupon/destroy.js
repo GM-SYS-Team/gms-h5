@@ -9,6 +9,7 @@ import { WingBlank,List, ActivityIndicator, WhiteSpace, Button, Modal , Toast,Re
 import { createForm } from 'rc-form';
 import TopBar from "../../components/Container/TopBar";
 import '../../utils/DateFormat'
+import {getCookie, resetCookieExpireDate} from "../../utils/cookie";
 
 
 
@@ -17,6 +18,12 @@ class Destroy extends React.Component{
 
     constructor(props) {
         super(props);
+
+        //使用
+        const userToken = getCookie("userToken");
+        if(typeof userToken === "undefined" || userToken === null){
+            browserHistory.push("/login");
+        }
 
         this.state = {
             showsucc:false,

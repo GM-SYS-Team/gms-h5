@@ -5,12 +5,14 @@ import * as actions from './actions';
 import './view/style.less';
 import { browserHistory } from 'react-router'
 
-import {Grid , WhiteSpace, Badge, Flex, List} from 'antd-mobile';
+import {Grid , WhiteSpace, Badge, Flex, List,Modal} from 'antd-mobile';
 import {Link} from 'react-router';
 import TopBar from "../../components/Container/TopBar";
 
 const Item = List.Item;
 const Brief = Item.Brief;
+
+const alert = Modal.alert;
 
 class Index extends React.Component{
 
@@ -18,13 +20,22 @@ class Index extends React.Component{
     gridClick = (index) =>{
         let userType = localStorage.getItem("userType");
 
-        if(typeof userType !== "undefined" && userType == "2"){
-            index++;
-        }
 
         if(index === 0){
-
-            browserHistory.push("/youzhuanbei");
+            //1商家2个人
+            if(typeof userType !== "undefined" && userType == "1"){
+                browserHistory.push("/youzhuanbei");
+            }else{
+                alert('提示', '您不是商家用户', [
+                    {
+                        text: '暂不注册',
+                        onPress: () =>  console.log('ok')
+                    },{
+                        text: '注册商家',
+                        onPress: () =>  browserHistory.push("/regBus")
+                    },
+                ])
+            }
         }
         if(index === 1){
             browserHistory.push("/index/shequ?title=社区");
@@ -72,13 +83,6 @@ class Index extends React.Component{
                 text: `微商`,
             }
         ];
-
-        //1商家2个人
-        let userType = localStorage.getItem("userType");
-        if(typeof userType !== "undefined" && userType == "2"){
-            data.splice(0,1);
-        }
-
 
         let isShowLogin = typeof localStorage.getItem("userToken") === "undefined";
 
