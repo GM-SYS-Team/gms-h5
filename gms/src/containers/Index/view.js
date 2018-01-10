@@ -49,7 +49,7 @@ class Index extends React.Component{
         let data = [
             {
                 icon: require('./view/icon1.png'),
-                text: `国码优赚呗`,
+                text: `优赚呗`,
             },
             {
                 icon: require('./view/icon2.png'),

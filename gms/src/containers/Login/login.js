@@ -30,7 +30,7 @@ class Login extends React.Component{
 
     onErrorClick = (key) => {
         if(typeof this.state.formError[key] !== "undefined" && this.state.formError[key].errors.length > 0 ){
-            Toast.info(this.state.formError[key].errors[0].message);
+            Toast.info(this.state.formError[key].errors[0].message,1);
         }
     }
 
@@ -100,7 +100,7 @@ class Login extends React.Component{
                     <WhiteSpace/>
                     <WhiteSpace/>
 
-                    <Button style={{height:40,lineHeight:"40px"}} type="primary" onClick={this.submit}>登陆</Button>
+                    <Button style={{height:40,lineHeight:"40px"}} type="primary" onClick={this.submit}>登录</Button>
 
                     <WhiteSpace/>
                     <WhiteSpace/>

@@ -17,7 +17,7 @@ export const listCoupon = (params) => {
             if(res.code === "1"){
                 dispatch(showShopCouponList(res.data.couponList));
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -36,7 +36,7 @@ export const getCoupon = (params) => {
             if(res.code === "1"){
                 dispatch(showSharedCoupon(res.data));
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -49,7 +49,7 @@ export const reciveCoupon = (params,callBack) => {
             if(res.code === "1"){
                 callBack();
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }

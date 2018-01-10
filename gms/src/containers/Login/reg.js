@@ -34,7 +34,7 @@ class Reg extends React.Component{
     //错误提示
     onErrorClick = (key) => {
         if(typeof this.state.formError[key] !== "undefined" && this.state.formError[key].errors.length > 0 ){
-            Toast.info(this.state.formError[key].errors[0].message);
+            Toast.info(this.state.formError[key].errors[0].message,1);
         }
     }
 
@@ -102,7 +102,7 @@ class Reg extends React.Component{
     submit = () => {
 
         if(!this.params.isAgree){
-            Toast.info("请先同意《国码扫用户注册协议》");
+            Toast.info("请先同意《国码扫用户注册协议》",1);
             return;
         }
 
@@ -227,7 +227,6 @@ class Reg extends React.Component{
                         {...getFieldProps('address', {
                             initialValue: '',
                         })}
-                        type="bankCard"
                         placeholder="请输入详细地址"
                     >详细地址</InputItem>
 
@@ -273,11 +272,11 @@ class Reg extends React.Component{
                     transparent
                     maskClosable={false}
                     onClose={this.onClose('modal1')}
-                    title="优赚呗用户服务和结算服务协议"
+                    title="国码扫用户服务和结算服务协议"
                     footer={[{ text: '关闭', onPress: () => { console.log('ok'); this.onClose('modal1')(); } }]}
                     wrapProps={{ onTouchStart: this.onWrapTouchStart }}
                 >
-                    <div style={{ height:"500px",  overflow: 'scroll' }}>
+                    <div style={{ height:"350px",  overflow: 'scroll' }}>
                         “‘优赚呗’用户服务和结算服务”（以下简称“本服务”）是由（深圳市码联国码信息技术有限公司为“优赚呗”平台的版权所有者，以下简称“乙方”）向“优赚呗”用户（以下简称“甲方”）提供的“优赚呗”软件系统（以下简称“本系统”）用户服务和货币结算服务，方便“优赚呗”的用户使用本系统，并提供通过本系统集成的第三方支付网关完成收付款服务。本协议由甲方和乙方签订。
                         <br/>声明与承诺
                         <br/>•	一、甲方确认，在甲方申请开通“优赚呗”的用户服务和结算服务之前，甲方已充分阅读、理解并接受本协议的全部内容，一旦甲方使用本服务，即表示甲方同意遵循本协议的所有约定。

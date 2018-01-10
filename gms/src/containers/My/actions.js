@@ -18,7 +18,7 @@ export const modifyNickName = (params,callBack) => {
                 localStorage.setItem("nickName",params.nickName);
                 callBack();
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -31,7 +31,7 @@ export const changeHeadImg = (file,callBack) => {
             if(res.code === "1"){
                 callBack(res.msg);
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }

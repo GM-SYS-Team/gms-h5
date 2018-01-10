@@ -18,7 +18,7 @@ export const loadingShopList = (params) => {
             if(res.code === "1"){
                 dispatch(showShopList(res.rows));
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -31,7 +31,7 @@ export const shopAdd = (params) => {
             if(res.code === "1"){
                 browserHistory.push("/shop/manager")
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -51,7 +51,7 @@ export const getShopDetail = (params) => {
             if(res.code === "1"){
                 dispatch(showShopDetail(res.data));
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -71,7 +71,7 @@ export const listShopGoods = (params) => {
             if(res.code === "1"){
                 dispatch(showShopGoodsList(res.data.rows));
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -84,7 +84,7 @@ export const shopGoodsAdd = (params) => {
             if(res.code === "1"){
                 window.history.back();
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -98,7 +98,7 @@ export const uploadGoodsImg = (file,callBack) => {
             if(res.code === "1"){
                 callBack(res.msg);
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -113,7 +113,7 @@ export const delShopGoods = (params,callBack) => {
             if(res.code === "1"){
                 callBack();
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -132,7 +132,7 @@ export const listCoupon = (params) => {
             if(res.code === "1"){
                 dispatch(showShopCouponList(res.data.couponList));
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -145,7 +145,7 @@ export const couponAdd = (params) => {
             if(res.code === "1"){
                 window.history.back();
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -159,7 +159,7 @@ export const shareCoupon = (params) => {
             if(res.code === "1"){
                 Toast.info("共享成功");
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }

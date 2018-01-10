@@ -51,7 +51,7 @@ class Reg extends React.Component{
 
     onErrorClick = (key) => {
         if(typeof this.state.formError[key] !== "undefined" && this.state.formError[key].errors.length > 0 ){
-            Toast.info(this.state.formError[key].errors[0].message);
+            Toast.info(this.state.formError[key].errors[0].message,1);
         }
     }
 
@@ -63,7 +63,7 @@ class Reg extends React.Component{
 
         let phone = this.props.form.getFieldValue("telephone");
         if(typeof phone === "undefined"){
-            Toast.info("请先输入手机号码");
+            Toast.info("请先输入手机号码",1);
             return;
         }
         this.props.sendVerifyCode({telephone:phone});

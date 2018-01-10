@@ -18,7 +18,7 @@ export const loadingShopList = (params) => {
             if(res.code === "1"){
                 dispatch(showShopList(res.data));
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }

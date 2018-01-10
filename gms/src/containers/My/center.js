@@ -3,10 +3,12 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from './actions';
 import './view/style.less';
+import { browserHistory } from 'react-router'
 
 import {WhiteSpace, WingBlank,Icon, List,Card} from 'antd-mobile';
 import TopBar from "../../components/Container/TopBar";
 import {Link} from 'react-router';
+import {getCookie, resetCookieExpireDate} from "../../utils/cookie";
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -15,9 +17,14 @@ class Center extends React.Component{
 
     constructor(props) {
         super(props);
+
+        const userToken = getCookie("userToken");
+
+        //使用
+        if(typeof userToken === "undefined" || userToken === null){
+            browserHistory.push("/login");
+        }
     }
-
-
 
     render(){
 
@@ -56,6 +63,8 @@ class Center extends React.Component{
                     <Link to="/my/coupon" style={{display:userType === "1"?"none":""}}>
                         <Item extra="" arrow="horizontal" onClick={() => {}}>我的优惠券</Item>
                     </Link>
+
+                    <Item extra="beta 1.0" onClick={() => {}}>版本号</Item>
                 </List>
 
             </div>

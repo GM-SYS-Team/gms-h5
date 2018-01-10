@@ -173,7 +173,7 @@ const isLogin = (nextState, replace) => {
     if(typeof userToken === "undefined" || userToken === null){
         let lastPath = nextState.location.pathname;
         localStorage.setItem("lastPath",lastPath);
-        replace("/login");
+        //replace("/login");
     }else {
         resetCookieExpireDate("userToken",20);
     }

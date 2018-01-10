@@ -34,7 +34,7 @@ export const login = (values) => {
                 }
 
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -45,9 +45,9 @@ export const sendVerifyCode = (params) => {
     return (dispatch) => {
         post("/app/user/sendSmsCode",false,params,(res)=>{
             if(res.code === "1"){
-                Toast.info("发送成功");
+                Toast.info("发送成功",1);
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -72,7 +72,7 @@ export const reg = (params) => {
                     browserHistory.push("/login");
                 });
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }
@@ -89,7 +89,7 @@ export const forgetPassword = (params) => {
                     browserHistory.push("/login");
                 });
             }else{
-                Toast.info(res.msg);
+                Toast.info(res.msg,1);
             }
         });
     }

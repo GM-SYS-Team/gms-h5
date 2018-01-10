@@ -36,7 +36,7 @@ class Add extends React.Component{
 
     onErrorClick = (key) => {
         if(typeof this.state.formError[key] !== "undefined" && this.state.formError[key].errors.length > 0 ){
-            Toast.info(this.state.formError[key].errors[0].message);
+            Toast.info(this.state.formError[key].errors[0].message,1);
         }
     }
 

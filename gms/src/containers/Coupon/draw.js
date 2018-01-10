@@ -38,7 +38,7 @@ class Draw extends React.Component{
     reciveCoupon = (shopId,couponId) =>{
         //领取
         if(shopId == null || couponId == null){
-            Toast.info("参数缺失");
+            Toast.info("参数缺失",1);
             return;
         }
         this.props.reciveCoupon({

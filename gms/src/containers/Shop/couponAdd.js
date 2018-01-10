@@ -59,7 +59,7 @@ class couponAdd extends React.Component{
                 this.setState({formError: {}})
                 values.shopId = this.props.params.id;
                 if(this.state.maxAmount === null){
-                    Toast.info("请选择面值");
+                    Toast.info("请选择面值",1);
                     return;
                 }
                 values.goodsId = values.goodsId[0];
@@ -76,7 +76,7 @@ class couponAdd extends React.Component{
 
     onErrorClick = (key) => {
         if(typeof this.state.formError[key] !== "undefined" && this.state.formError[key].errors.length > 0 ){
-            Toast.info(this.state.formError[key].errors[0].message);
+            Toast.info(this.state.formError[key].errors[0].message,1);
         }
     }
 
@@ -217,7 +217,7 @@ class couponAdd extends React.Component{
                     <TextareaItem
                         {...getFieldProps('couponInfo',{
                             initialValue: '',
-                            rules: [{ required: true,message:"请输入使用说明"}],
+                            rules: [{ required: false,message:"请输入使用说明"}],
                         })}
                         title="使用说明"
                         placeholder="请输入使用说明"

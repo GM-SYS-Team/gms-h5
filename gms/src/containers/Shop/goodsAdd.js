@@ -33,7 +33,7 @@ class GoodsAdd extends React.Component{
             if (!error) {
                 this.setState({formError: {}})
                 if(this.state.pictureAddress === ""){
-                    Toast.info("请上传商品图片");
+                    Toast.info("请上传商品图片",1);
                     return;
                 }
                 values.shopId = this.props.params.id;
@@ -48,7 +48,7 @@ class GoodsAdd extends React.Component{
 
     onErrorClick = (key) => {
         if(typeof this.state.formError[key] !== "undefined" && this.state.formError[key].errors.length > 0 ){
-            Toast.info(this.state.formError[key].errors[0].message);
+            Toast.info(this.state.formError[key].errors[0].message,1);
         }
     }
 

@@ -29,6 +29,11 @@ class Login extends React.Component{
     //退出登录
     loginOut = () =>{
         setCookie("userToken",null);
+
+        localStorage.removeItem("nickName");
+        localStorage.removeItem("phoneNum");
+        localStorage.removeItem("userType");
+        localStorage.removeItem("imgUrl");
         localStorage.removeItem("userToken");
         browserHistory.push("/login");
     }
@@ -46,7 +51,7 @@ class Login extends React.Component{
         //执行上传
         this.props.changeHeadImg(this.state.files[0].file,(msg)=>{
             localStorage.setItem("imgUrl",msg);
-            Toast.info("修改成功");
+            Toast.info("修改成功",1);
         });
     }
 
@@ -98,7 +103,7 @@ class Login extends React.Component{
 
                 </List>
 
-                <Button style={{height:40,lineHeight:"40px",position:'fixed',bottom:10,width:"80%",marginLeft:"10%"}} type="primary" onClick={this.loginOut}>退出登陆</Button>
+                <Button style={{height:40,lineHeight:"40px",position:'fixed',bottom:10,width:"80%",marginLeft:"10%"}} type="primary" onClick={this.loginOut}>退出登录</Button>
 
 
 
