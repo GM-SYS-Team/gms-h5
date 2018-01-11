@@ -185,6 +185,10 @@ const isLogin = (nextState, replace) => {
     //使用
     if(typeof userToken === "undefined" || userToken === null){
         let lastPath = nextState.location.pathname;
+        let search = nextState.location.search;
+        if(typeof search !== "undefined" && search != null){
+            lastPath = lastPath + search;
+        }
         localStorage.setItem("lastPath",lastPath);
         //replace("/login");
     }else {

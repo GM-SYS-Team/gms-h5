@@ -21,12 +21,6 @@ class Draw extends React.Component{
     constructor(props) {
         super(props);
 
-        //使用
-        const userToken = getCookie("userToken");
-        if(typeof userToken === "undefined" || userToken === null){
-            browserHistory.push("/login");
-        }
-
         this.state = {
             showMainPart:true,
             showSharePart:false

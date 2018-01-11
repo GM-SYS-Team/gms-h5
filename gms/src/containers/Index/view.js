@@ -8,6 +8,7 @@ import { browserHistory } from 'react-router'
 import {Grid , WhiteSpace, Badge, Flex, List,Modal} from 'antd-mobile';
 import {Link} from 'react-router';
 import TopBar from "../../components/Container/TopBar";
+import {getCookie, resetCookieExpireDate} from "../../utils/cookie";
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -20,8 +21,13 @@ class Index extends React.Component{
     gridClick = (index) =>{
         let userType = localStorage.getItem("userType");
 
-
         if(index === 0){
+            let userToken = getCookie("userToken");
+            if(typeof userToken === "undefined" || userToken === null ){
+                browserHistory.push("/login");
+                return;
+            }
+
             //1商家2个人
             if(typeof userType !== "undefined" && userType == "1"){
                 browserHistory.push("/youzhuanbei");
@@ -38,19 +44,19 @@ class Index extends React.Component{
             }
         }
         if(index === 1){
-            browserHistory.push("/index/shequ?title=社区");
+            browserHistory.push("/index/shequ?title=社区&pic=shequ");
         }
         if(index === 2){
-            browserHistory.push("/index/guangdian");
+            browserHistory.push("/index/shequ?title=广电&pic=guangdian");
         }
         if(index === 3){
-            browserHistory.push("/index/shequ?title=拓展");
+            browserHistory.push("/index/shequ?title=拓展&pic=tuozhan");
         }
         if(index === 4){
-            browserHistory.push("/index/shequ?title=印章");
+            browserHistory.push("/index/shequ?title=印章&pic=yinzhang");
         }
         if(index === 5){
-            browserHistory.push("/index/shequ?title=微商");
+            browserHistory.push("/index/shequ?title=微商&pic=weishang");
         }
     }
 

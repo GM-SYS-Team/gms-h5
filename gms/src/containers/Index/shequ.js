@@ -17,9 +17,9 @@ class Shequ extends React.Component{
     componentDidMount(){
 
     }
-
-
     render(){
+
+        let picUrl = "./view/"+ this.props.location.query.pic+".jpg";
 
         return (
             <div className="index" >
@@ -28,8 +28,7 @@ class Shequ extends React.Component{
                     title={this.props.location.query.title}
                     targetPage="/"
                 />
-
-                <p style={{fontSize:14,color:"#666",textAlign:"center",marginTop:20}}>功能暂未开放，敬请期待</p>
+                <img style={{width:"100%"}} src={require('./view/'+this.props.location.query.pic+'.jpg')} alt=""/>
 
             </div>
         );
