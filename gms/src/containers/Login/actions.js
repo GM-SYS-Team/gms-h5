@@ -71,7 +71,7 @@ export const reg = (params) => {
                 Toast.info("注册成功",1,() =>{
                     // browserHistory.push("/login");
                     //跳转到xx页面
-                    browserHistory.push("https://h5.youzan.com/v2/ump/promocard/fetch?alias=13ct9s2fh");
+                    browserHistory.push("/iframe");
 
                 });
             }else{
