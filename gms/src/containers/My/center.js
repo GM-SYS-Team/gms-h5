@@ -57,7 +57,7 @@ class Center extends React.Component{
 
                 <WhiteSpace/>
                 <List className="link-list">
-                    <Link to="/draw" style={{display:userType === "2"?"none":""}}>
+                    <Link to="/shop/manager?targetPage=refer" style={{display:userType === "2"?"none":""}}>
                         <Item arrow="horizontal" onClick={() => {}}>店铺信息</Item>
                     </Link>
                     <Link to="/my/coupon" style={{display:userType === "1"?"none":""}}>

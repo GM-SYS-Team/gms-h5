@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import * as actions from './actions';
 import './view/style.less';
 
-import {WhiteSpace, WingBlank,Tabs, List,Button,Badge,ListView } from 'antd-mobile';
+import {WhiteSpace, WingBlank,Tabs, List,Button,Badge,ListView,Toast } from 'antd-mobile';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
 import {Link} from 'react-router';
@@ -78,6 +78,7 @@ class Coupon extends React.Component{
             isLoading: false,
             footerText: footerText
         });
+        Toast.hide();
     }
 
     //加载列表数据
@@ -101,7 +102,12 @@ class Coupon extends React.Component{
 
     //tab页面
     tabChange = (index,tab) =>{
-        this.setState({tabIndex:index});
+        Toast.loading('加载中...', 1000);
+        this.setState({
+            tabIndex:index,
+            pageData0:[],
+            pageData1:[],
+            pageData2:[],});
         //加载数据
         this.loadingData(index);
     }

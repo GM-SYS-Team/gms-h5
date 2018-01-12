@@ -77,12 +77,21 @@ class Manager extends React.Component{
             );
         };
 
+        let targetPage = this.props.location.query.targetPage;
+        if(typeof targetPage === "undefined" ||  targetPage == null){
+            targetPage = "/youzhuanbei";
+        }else{
+            if(targetPage == "refer"){
+                targetPage = "/?selectedTab=dingdan";
+            }
+        }
+
         return (
             <div className="shop" >
 
                 <TopBar
                     title="店铺管理"
-                    targetPage="/youzhuanbei"
+                    targetPage={targetPage}
                     rightContent={(
                         <Link to="/shop/add">新增</Link>
                     )}

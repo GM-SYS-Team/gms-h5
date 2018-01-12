@@ -22,7 +22,7 @@ class Index extends React.Component{
     render(){
 
         return (
-            <div className="index" >
+            <div className="index">
 
                 <TopBar
                     title="优赚呗"
