@@ -4,4 +4,4 @@
  */
 
 //test
-export const API_URL = "http://116.62.143.222:9000/";
+export const API_URL = "http://39.104.68.153:9000/";

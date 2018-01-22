@@ -64,7 +64,7 @@ class Center extends React.Component{
                         <Item extra="" arrow="horizontal" onClick={() => {}}>我的优惠券</Item>
                     </Link>
 
-                    <Item extra="1.0.0" onClick={() => {}}>版本号</Item>
+                    <Item extra="1.0.4" onClick={() => {}}>版本号</Item>
                 </List>
 
             </div>
