@@ -9,6 +9,7 @@ import {stateKey as salesStateKey, reducer as salesReducer, initialState as sale
 import {stateKey as orderStateKey, reducer as orderReducer, initialState as orderState} from './containers/My/';
 import {stateKey as shopStateKey, reducer as shopReducer, initialState as shopState} from './containers/Shop/';
 import {stateKey as couponStateKey, reducer as couponReducer, initialState as couponState} from './containers/Coupon/';
+import {stateKey as supplierStateKey, reducer as supplierReducer, initialState as supplierState} from './containers/Supplier/';
 
 
 
@@ -23,10 +24,9 @@ const originalReducers = {
     [orderStateKey]: orderReducer,
     [shopStateKey]: shopReducer,
     [couponStateKey]: couponReducer,
+    [supplierStateKey]: supplierReducer,
 };
 const reducer = combineReducers(originalReducers);
-
-
 
 /**
  * 向store中注册状态树
@@ -38,6 +38,7 @@ const initialState = {
     [orderStateKey]: orderState,
     [shopStateKey]: shopState,
     [couponStateKey]: couponState,
+    [supplierStateKey]: supplierState,
 };
 
 

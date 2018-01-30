@@ -171,7 +171,19 @@ const getShopcouponAddPage = (nextState, callback) => {
     }, 'shopcouponAdd');
 };
 
-
+/**
+ *  供应商
+ */
+const getSupplierListpage = (nextState, callback) => {
+    require.ensure([], function(require) {
+        callback(null, require('./containers/Supplier/index').supplierList);
+    }, 'supplierList');
+};
+const getSupplierAddOrEditpage = (nextState, callback) => {
+    require.ensure([], function(require) {
+        callback(null, require('./containers/Supplier/index').supplierAddOrEdit);
+    }, 'supplierAddOrEdit');
+};
 
 
 /**
@@ -237,7 +249,6 @@ const Routes = () => (
             <Route path="/destroy" getComponent={getDestroyPage} />
             <Route path="/my/coupon" getComponent={getCouponPage} />
 
-
             <Route path="/shop/manager" getComponent={getManagerPage} />
             <Route path="/shop/add" getComponent={getShopAddPage} />
             <Route path="/shop/detail/:id" getComponent={getShopDetailPage} />
@@ -245,6 +256,9 @@ const Routes = () => (
             <Route path="/shop/:id/goodsAdd" getComponent={getShopgoodsAddPage} />
             <Route path="/shop/:id/coupon" getComponent={getShopcouponPage} />
             <Route path="/shop/:id/couponAdd" getComponent={getShopcouponAddPage} />
+
+            <Route path="/supplier/list" getComponent={getSupplierListpage} />
+            <Route path="/supplier/addOrEdit" getComponent={getSupplierAddOrEditpage} />
 
         </Route>
 

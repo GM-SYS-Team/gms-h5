@@ -33,6 +33,18 @@ class Index extends React.Component{
                     <Link to="/shop/manager">
                         <Item arrow="horizontal" onClick={() => {}}>店铺管理</Item>
                     </Link>
+                    <Link to="/shop/manager">
+                        <Item arrow="horizontal" onClick={() => {}}>商品管理</Item>
+                    </Link>
+                    <Link to="/shop/manager">
+                        <Item arrow="horizontal" onClick={() => {}}>库存管理</Item>
+                    </Link>
+                    <Link to="/supplier/list">
+                        <Item arrow="horizontal" onClick={() => {}}>供应商管理</Item>
+                    </Link>
+                    <Link to="/shop/manager">
+                        <Item arrow="horizontal" onClick={() => {}}>客户管理</Item>
+                    </Link>
 
                 </List>
 
