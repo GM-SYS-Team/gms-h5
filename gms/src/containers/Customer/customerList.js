@@ -21,8 +21,8 @@ const Item = List.Item;
 const Brief = Item.Brief;
 const alert = Modal.alert;
 
-/*供应商列表*/
-class SupplierList extends React.Component{
+/*客户列表*/
+class CustomerList extends React.Component{
 
     constructor(props) {
         super(props);
@@ -49,9 +49,9 @@ class SupplierList extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
-        let supplierList = nextProps.supplierList;
-        if(typeof supplierList !== "undefined"){
-            let dataList = supplierList.rows;
+        let customerList = nextProps.customerList;
+        if(typeof customerList !== "undefined"){
+            let dataList = customerList.rows;
             this.setState({
                dataSource: groupSectionAndRows(this.state.dataSource,dataList)
             });
@@ -59,7 +59,7 @@ class SupplierList extends React.Component{
     }
 
     loadingData =()=>{
-        this.props.listSupplier({
+        this.props.listCustomer({
             page:1,
             rows:1000,
             shopId:this.props.params.id
@@ -85,13 +85,13 @@ class SupplierList extends React.Component{
     render(){
 
         return (
-            <Container className="supplier list">
+            <Container className="customer list">
 
                 <TopBar
-                    title="供应商管理"
+                    title="客户管理"
                     targetPage={"/shop/detail/"+this.props.params.id}
                     rightContent={(
-                        <Link to={"/shop/"+this.props.params.id+"/supplier/addOrEdit"}><img style={{width:25}} src={require("../../resource/add.png")} alt=""/></Link>
+                        <Link to={"/shop/"+this.props.params.id+"/customer/addOrEdit"}><img style={{width:25}} src={require("../../resource/add.png")} alt=""/></Link>
                     )}
                 />
 
@@ -143,18 +143,18 @@ class SupplierList extends React.Component{
                                     {
                                         text: '编辑',
                                         onPress: () => {
-                                            localStorage.setItem("currentSupplier",JSON.stringify(rowData));
-                                            browserHistory.push("/shop/"+this.props.params.id+"/supplier/addOrEdit")
+                                            localStorage.setItem("currentCustomer",JSON.stringify(rowData));
+                                            browserHistory.push("/shop/"+this.props.params.id+"/customer/addOrEdit")
                                         },
                                         style: { backgroundColor: '#108ee9', color: 'white' },
                                     },
                                     {
                                         text: '删除',
                                         onPress: () => {
-                                            alert('删除', '确定要删除供应商'+rowData.name+"吗？", [
+                                            alert('删除', '确定要删除客户'+rowData.name+"吗？", [
                                                 { text: '取消', onPress: () => {}, style: 'default' },
                                                 { text: '确定', onPress: () => {
-                                                    this.props.delSupplier({
+                                                    this.props.delCustomer({
                                                         shopId:this.props.params.id,
                                                         id:rowData.id
                                                     })
@@ -186,19 +186,19 @@ class SupplierList extends React.Component{
 }
 
 //组件名和组件初始化状态
-export const stateKey = "supplier";
+export const stateKey = "customer";
 //初始化state
 export const initialState = {
-    supplierList:[],
+    customerList:[],
 };
 //注入state
 const mapStateToProps = (state) => ({
-    supplierList:state[stateKey].supplierList
+    customerList:state[stateKey].customerList
 });
 //注入action
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    listSupplier:actions.listSupplier,
-    delSupplier: actions.delSupplier
+    listCustomer:actions.listCustomer,
+    delCustomer: actions.delCustomer
 }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(SupplierList);
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerList);
 

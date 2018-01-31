@@ -59,7 +59,6 @@ export const post = (url,isJSON,params,callBack) => {
         params = qs.stringify(params);
     }
     axios.post(url,params).then(function (res) {
-        console.log(res)
         if(res.data.code == 2){
             browserHistory.push("/login")
         }else{

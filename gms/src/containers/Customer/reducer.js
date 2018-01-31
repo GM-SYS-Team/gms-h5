@@ -12,13 +12,9 @@ export default (state = {}, action) => {
     switch (action.type) {
 
         //供应商列表
-        case actions.supplier_list:{
-            return {...state,supplierList:action.data}
+        case actions.customer_list:{
+            return {...state,customerList:action.data}
         }
-
-
-
-
 
         default:
             return {...state}

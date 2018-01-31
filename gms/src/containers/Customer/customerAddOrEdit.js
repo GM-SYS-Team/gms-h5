@@ -15,25 +15,25 @@ import {uploadImg} from "../../utils/ajax";
 const Item = List.Item;
 const Brief = Item.Brief;
 
-/*供应商新增或者编辑*/
+/*客户新增或者编辑*/
 class AddOrEdit extends React.Component{
 
     constructor(props) {
         super(props);
 
         //编辑的值
-        let supplier = localStorage.getItem("currentSupplier");
-        if(typeof supplier === "undefined" || supplier == null){
-            supplier = {};
+        let customer = localStorage.getItem("currentCustomer");
+        if(typeof customer === "undefined" || customer == null){
+            customer = {};
         }else{
-            supplier = JSON.parse(supplier);
+            customer = JSON.parse(customer);
         }
-        localStorage.removeItem("currentSupplier");
+        localStorage.removeItem("currentCustomer");
 
         this.state = {
             formError:{},
             loading:false,
-            supplier:supplier
+            customer:customer
         }
     }
 
@@ -42,11 +42,11 @@ class AddOrEdit extends React.Component{
             if (!error) {
                 this.setState({formError: {}})
                 values.shopId = this.props.params.id;
-                if(typeof this.state.supplier.id !== "undefined"){
-                    values.id =  this.state.supplier.id;
-                    this.props.editSupplier(values);
+                if(typeof this.state.customer.id !== "undefined"){
+                    values.id =  this.state.customer.id;
+                    this.props.editCustomer(values);
                 }else{
-                    this.props.addSupplier(values);
+                    this.props.addCustomer(values);
                 }
 
             }else{
@@ -65,27 +65,27 @@ class AddOrEdit extends React.Component{
         const { getFieldProps } = this.props.form;
 
         return (
-            <Container className="supplier add" >
+            <Container className="customer add" >
 
                 <TopBar
-                    title="新建供应商"
+                    title="新建客户"
                 />
 
                 <List className="link-list">
 
                     <InputItem
                         {...getFieldProps('name', {
-                            initialValue: this.state.supplier.name,
-                            rules: [{ required: true,message:"请输入供应商名称"}],
+                            initialValue: this.state.customer.name,
+                            rules: [{ required: true,message:"请输入客户名称"}],
                         })}
                         placeholder="点击填写"
                         error={typeof this.state.formError["name"] !== "undefined"}
                         onErrorClick={this.onErrorClick.bind(this,"name")}
-                    >供应商名称</InputItem>
+                    >客户名称</InputItem>
 
                     <InputItem
                         {...getFieldProps('contact', {
-                            initialValue: this.state.supplier.contact,
+                            initialValue: this.state.customer.contact,
                             rules: [{ required: true,message:"请输入联系人"}],
                         })}
                         placeholder="点击填写"
@@ -95,7 +95,7 @@ class AddOrEdit extends React.Component{
 
                     <InputItem
                         {...getFieldProps('number', {
-                            initialValue: this.state.supplier.number,
+                            initialValue: this.state.customer.number,
                             rules: [{ required: true,message:"请输入电话"}],
                         })}
                         placeholder="点击填写"
@@ -105,7 +105,7 @@ class AddOrEdit extends React.Component{
 
                     <InputItem
                         {...getFieldProps('address', {
-                            initialValue: this.state.supplier.address,
+                            initialValue: this.state.customer.address,
                             rules: [{ required: true,message:"请输入联系地址"}],
                         })}
                         placeholder="点击填写"
@@ -115,7 +115,7 @@ class AddOrEdit extends React.Component{
 
                     <InputItem
                         {...getFieldProps('remarks', {
-                            initialValue: this.state.supplier.remarks,
+                            initialValue: this.state.customer.remarks,
                             rules: [{ required: false,message:"请输入备注"}],
                         })}
                         placeholder="点击填写"
@@ -138,7 +138,7 @@ class AddOrEdit extends React.Component{
 const AddOrEditFormWrapper = createForm()(AddOrEdit);
 
 //组件名和组件初始化状态
-export const stateKey = "supplier";
+export const stateKey = "customer";
 //初始化state
 export const initialState = {
 };
@@ -147,7 +147,7 @@ const mapStateToProps = (state) => ({
 });
 //注入action
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    addSupplier:actions.addSupplier,
-    editSupplier: actions.editSupplier,
+    addCustomer:actions.addCustomer,
+    editCustomer: actions.editCustomer,
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(AddOrEditFormWrapper);

@@ -10,6 +10,7 @@ import {stateKey as orderStateKey, reducer as orderReducer, initialState as orde
 import {stateKey as shopStateKey, reducer as shopReducer, initialState as shopState} from './containers/Shop/';
 import {stateKey as couponStateKey, reducer as couponReducer, initialState as couponState} from './containers/Coupon/';
 import {stateKey as supplierStateKey, reducer as supplierReducer, initialState as supplierState} from './containers/Supplier/';
+import {stateKey as customerStateKey, reducer as customerReducer, initialState as customerState} from './containers/Customer/';
 
 
 
@@ -25,6 +26,7 @@ const originalReducers = {
     [shopStateKey]: shopReducer,
     [couponStateKey]: couponReducer,
     [supplierStateKey]: supplierReducer,
+    [customerStateKey]: customerReducer,
 };
 const reducer = combineReducers(originalReducers);
 
@@ -39,6 +41,7 @@ const initialState = {
     [shopStateKey]: shopState,
     [couponStateKey]: couponState,
     [supplierStateKey]: supplierState,
+    [customerStateKey]: customerState,
 };
 
 

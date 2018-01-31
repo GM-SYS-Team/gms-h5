@@ -185,6 +185,21 @@ const getSupplierAddOrEditpage = (nextState, callback) => {
     }, 'supplierAddOrEdit');
 };
 
+/**
+ *  客户
+ */
+const getCustomerListpage = (nextState, callback) => {
+    require.ensure([], function(require) {
+        callback(null, require('./containers/Customer/index').customerList);
+    }, 'customerList');
+};
+const getCustomerAddOrEditpage = (nextState, callback) => {
+    require.ensure([], function(require) {
+        callback(null, require('./containers/Customer/index').customerAddOrEdit);
+    }, 'customerAddOrEdit');
+};
+
+
 
 /**
  * 登陆状态判断用户
@@ -259,6 +274,8 @@ const Routes = () => (
 
             <Route path="/shop/:id/supplier/list" getComponent={getSupplierListpage} />
             <Route path="/shop/:id/supplier/addOrEdit" getComponent={getSupplierAddOrEditpage} />
+            <Route path="/shop/:id/customer/list" getComponent={getCustomerListpage} />
+            <Route path="/shop/:id/customer/addOrEdit" getComponent={getCustomerAddOrEditpage} />
 
         </Route>
 

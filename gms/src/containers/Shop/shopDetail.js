@@ -60,7 +60,7 @@ class Detail extends React.Component{
                     title="店铺管理"
                 />
 
-                <List renderHeader={() => '店铺信息'} className="link-list">
+                <List renderHeader={() => '店铺信息'}>
                     <Item extra={shopDetail.shopName} onClick={() => {}}>店铺名称</Item>
                     <Item extra="" arrow="horizontal" onClick={this.showModal('modal1')}>店铺二维码</Item>
                 </List>
@@ -75,7 +75,7 @@ class Detail extends React.Component{
                     <Link to={"/shop/"+this.props.params.id+"/supplier/list"}>
                         <Item arrow="horizontal" onClick={() => {}}>供应商管理</Item>
                     </Link>
-                    <Link to="/shop/manager">
+                    <Link to={"/shop/"+this.props.params.id+"/customer/list"}>
                         <Item arrow="horizontal" onClick={() => {}}>客户管理</Item>
                     </Link>
                 </List>
