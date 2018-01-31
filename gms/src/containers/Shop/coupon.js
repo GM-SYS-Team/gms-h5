@@ -7,6 +7,7 @@ import './view/style.less';
 import {WhiteSpace, WingBlank,Tabs, List,Button,Badge,ListView, Toast } from 'antd-mobile';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
 import {Link} from 'react-router';
 
 import { createForm } from 'rc-form';
@@ -241,7 +242,7 @@ class Coupon extends React.Component{
         let urlAdd = "/shop/"+this.props.params.id+"/couponAdd";
 
         return (
-            <div className="coupon" >
+            <Container className="coupon" >
 
                 <TopBar
                     title="优惠券"
@@ -321,7 +322,7 @@ class Coupon extends React.Component{
 
                 </Tabs>
 
-            </div>
+            </Container>
         );
     }
 }

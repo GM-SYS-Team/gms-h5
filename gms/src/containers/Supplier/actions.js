@@ -5,18 +5,17 @@ import {getCookie,setCookie} from '../../utils/cookie';
 import {Toast } from 'antd-mobile';
 
 
-//店铺列表
-export const index_shop_list = "index_shop_list";
-export const showShopList = (data) => ({
-    type: index_shop_list,
+//供应商列表
+export const supplier_list = "supplier_list";
+export const showSupplierList = (data) => ({
+    type: supplier_list,
     data: data
 });
-
-export const loadingShopList = (params) => {
+export const listSupplier = (params) => {
     return (dispatch) => {
-        post("/app/shop/list",false,params,(res)=>{
+        post("/app/jxc/supplier/list",false,params,(res)=>{
             if(res.code === "1"){
-                dispatch(showShopList(res.rows));
+                dispatch(showSupplierList(res.data));
             }else{
                 Toast.info(res.msg,1);
             }
@@ -24,12 +23,12 @@ export const loadingShopList = (params) => {
     }
 };
 
-//店铺新增
-export const shopAdd = (params) => {
+//供应商新增
+export const addSupplier = (params) => {
     return (dispatch) => {
-        post("/app/shop/save",false,params,(res)=>{
+        post("/app/jxc/supplier/save",false,params,(res)=>{
             if(res.code === "1"){
-                browserHistory.push("/shop/manager")
+                browserHistory.push("/shop/"+params.shopId+"/supplier/list")
             }else{
                 Toast.info(res.msg,1);
             }

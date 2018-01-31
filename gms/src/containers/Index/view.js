@@ -6,6 +6,8 @@ import './view/style.less';
 import { browserHistory } from 'react-router'
 
 import {Grid , WhiteSpace, Badge, Flex, List,Modal} from 'antd-mobile';
+import Container from "../../components/Container/index";
+
 import {Link} from 'react-router';
 import TopBar from "../../components/Container/TopBar";
 import {getCookie, resetCookieExpireDate} from "../../utils/cookie";
@@ -94,7 +96,7 @@ class Index extends React.Component{
 
 
         return (
-            <div className="index" >
+            <Container className="index" >
 
                 <TopBar
                     hideback="true"
@@ -109,7 +111,7 @@ class Index extends React.Component{
                     columnNum={3}
                     hasLine={false}
                     onClick={(el,index) => this.gridClick(index)}/>
-            </div>
+            </Container>
         );
     }
 }

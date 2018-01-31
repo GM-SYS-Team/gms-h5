@@ -7,6 +7,7 @@ import './view/login.less';
 import { WingBlank,List, InputItem, WhiteSpace, Button, Flex, Toast, SegmentedControl  } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
 import {Link} from 'react-router';
 
 class Login extends React.Component{
@@ -51,7 +52,7 @@ class Login extends React.Component{
         const { getFieldProps } = this.props.form;
 
         return (
-            <div className="login">
+            <Container className="login">
                 <TopBar
                     title="登录"
                     hideback="true"
@@ -112,7 +113,7 @@ class Login extends React.Component{
 
 
                 </WingBlank>
-            </div>
+            </Container>
         );
     }
 }

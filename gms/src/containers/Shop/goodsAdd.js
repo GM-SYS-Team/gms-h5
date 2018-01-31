@@ -7,6 +7,7 @@ import './view/style.less';
 import {WhiteSpace, WingBlank,Button, List,InputItem,ImagePicker,Toast,ActivityIndicator } from 'antd-mobile';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
 import {Link} from 'react-router';
 
 import { createForm } from 'rc-form';
@@ -69,7 +70,7 @@ class GoodsAdd extends React.Component{
         const { files } = this.state;
 
         return (
-            <div className="shop" >
+            <Container className="shop" >
 
                 <TopBar
                     title="新增商品"
@@ -120,7 +121,7 @@ class GoodsAdd extends React.Component{
 
                 <ActivityIndicator toast text="上传中..." animating={this.state.loading}/>
 
-            </div>
+            </Container>
         );
     }
 }

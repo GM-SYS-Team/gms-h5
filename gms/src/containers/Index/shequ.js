@@ -3,9 +3,10 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from './actions';
 import './view/style.less';
-import TopBar from "../../components/Container/TopBar";
 
 import {Grid , WhiteSpace, Badge, Flex, List} from 'antd-mobile';
+import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
 import {Link} from 'react-router';
 
 const Item = List.Item;
@@ -22,7 +23,7 @@ class Shequ extends React.Component{
         let picUrl = "./view/"+ this.props.location.query.pic+".jpg";
 
         return (
-            <div className="index" >
+            <Container className="index" >
 
                 <TopBar
                     title={this.props.location.query.title}
@@ -30,7 +31,7 @@ class Shequ extends React.Component{
                 />
                 <img style={{width:"100%"}} src={require('./view/'+this.props.location.query.pic+'.jpg')} alt=""/>
 
-            </div>
+            </Container>
         );
     }
 }

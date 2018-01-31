@@ -7,6 +7,7 @@ import './view/style.less';
 import {WhiteSpace, WingBlank,Button, List,ListView} from 'antd-mobile';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
 import {Link} from 'react-router';
 
 const Item = List.Item;
@@ -87,7 +88,7 @@ class Manager extends React.Component{
         }
 
         return (
-            <div className="shop" >
+            <Container className="shop" >
 
                 <TopBar
                     title="店铺管理"
@@ -115,7 +116,7 @@ class Manager extends React.Component{
                     onEndReached={this.onEndReached}
                     onEndReachedThreshold={10}
                 />
-            </div>
+            </Container>
         );
     }
 }

@@ -257,8 +257,8 @@ const Routes = () => (
             <Route path="/shop/:id/coupon" getComponent={getShopcouponPage} />
             <Route path="/shop/:id/couponAdd" getComponent={getShopcouponAddPage} />
 
-            <Route path="/supplier/list" getComponent={getSupplierListpage} />
-            <Route path="/supplier/addOrEdit" getComponent={getSupplierAddOrEditpage} />
+            <Route path="/shop/:id/supplier/list" getComponent={getSupplierListpage} />
+            <Route path="/shop/:id/supplier/addOrEdit" getComponent={getSupplierAddOrEditpage} />
 
         </Route>
 

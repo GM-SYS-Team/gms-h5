@@ -7,6 +7,7 @@ import './view/login.less';
 import { WingBlank,List, InputItem, WhiteSpace, Button, Checkbox,Flex , Toast ,SegmentedControl,Picker,Modal } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
 import {Link} from 'react-router';
 import Areas from "../../components/FormItem/areas";
 
@@ -18,7 +19,7 @@ class Iframe extends React.Component{
     render(){
 
         return (
-            <div className="reg">
+            <Container className="reg">
 
 
                 <div style={{width:"100%",overflow:"hide",height:window.screen.height -45}}>
@@ -32,7 +33,7 @@ class Iframe extends React.Component{
                 </div>
 
 
-            </div>
+            </Container>
         );
     }
 }

@@ -3,9 +3,11 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from './actions';
 import './view/style.less';
-import TopBar from "../../components/Container/TopBar";
 
 import {Grid , WhiteSpace, Badge, Flex, List} from 'antd-mobile';
+import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
+
 import {Link} from 'react-router';
 
 const Item = List.Item;
@@ -22,7 +24,7 @@ class Index extends React.Component{
     render(){
 
         return (
-            <div className="index">
+            <Container className="index">
 
                 <TopBar
                     title="优赚呗"
@@ -33,22 +35,9 @@ class Index extends React.Component{
                     <Link to="/shop/manager">
                         <Item arrow="horizontal" onClick={() => {}}>店铺管理</Item>
                     </Link>
-                    <Link to="/shop/manager">
-                        <Item arrow="horizontal" onClick={() => {}}>商品管理</Item>
-                    </Link>
-                    <Link to="/shop/manager">
-                        <Item arrow="horizontal" onClick={() => {}}>库存管理</Item>
-                    </Link>
-                    <Link to="/supplier/list">
-                        <Item arrow="horizontal" onClick={() => {}}>供应商管理</Item>
-                    </Link>
-                    <Link to="/shop/manager">
-                        <Item arrow="horizontal" onClick={() => {}}>客户管理</Item>
-                    </Link>
-
                 </List>
 
-            </div>
+            </Container>
         );
     }
 }

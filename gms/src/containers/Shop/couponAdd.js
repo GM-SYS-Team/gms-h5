@@ -7,6 +7,7 @@ import './view/style.less';
 import {WhiteSpace, WingBlank,Button, List,InputItem,ActionSheet,Modal,DatePicker,Toast,TextareaItem,Picker} from 'antd-mobile';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
 import {Link} from 'react-router';
 import enUs from 'antd-mobile/lib/date-picker/locale/en_US';
 import DateFormat from '../../utils/DateFormat';
@@ -151,7 +152,7 @@ class couponAdd extends React.Component{
         }
 
         return (
-            <div className="shop" >
+            <Container className="shop" >
 
                 <TopBar
                     title="新增优惠券"
@@ -234,7 +235,7 @@ class couponAdd extends React.Component{
                     <Button style={{height:40,lineHeight:"40px"}} type="primary" onClick={this.submit}>发放</Button>
                 </WingBlank>
 
-            </div>
+            </Container>
         );
     }
 }

@@ -7,6 +7,7 @@ import './view/login.less';
 import { WingBlank,List, InputItem, WhiteSpace, Button, Checkbox,Flex , Toast ,SegmentedControl,Picker,Modal } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
 import {Link} from 'react-router';
 import Areas from "../../components/FormItem/areas";
 
@@ -117,7 +118,7 @@ class RegBus extends React.Component{
         const { getFieldProps } = this.props.form;
 
         return (
-            <div className="reg">
+            <Container className="reg">
                 <TopBar
                     title="填写注册信息"
                 />
@@ -322,7 +323,7 @@ class RegBus extends React.Component{
                 </Modal>
 
 
-            </div>
+            </Container>
         );
     }
 }

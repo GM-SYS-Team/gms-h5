@@ -5,6 +5,8 @@ import * as actions from './actions';
 import './view/style.less';
 
 import {WhiteSpace, WingBlank,Tabs, List,Button,Badge,ListView,Toast } from 'antd-mobile';
+import Container from "../../components/Container/index";
+
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
 import {Link} from 'react-router';
@@ -253,7 +255,7 @@ class Coupon extends React.Component{
 
 
         return (
-            <div className="coupon" >
+            <Container className="coupon" >
 
                 <TopBar
                     title="优惠券"
@@ -325,7 +327,7 @@ class Coupon extends React.Component{
 
                 </Tabs>
 
-            </div>
+            </Container>
         );
     }
 }

@@ -7,6 +7,7 @@ import './view/login.less';
 import { WingBlank,List, InputItem, WhiteSpace, Button, Checkbox,Flex , Toast ,SegmentedControl,Picker } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
 
 const CheckboxItem = Checkbox.CheckboxItem;
 const AgreeItem = Checkbox.AgreeItem;
@@ -116,7 +117,7 @@ class Reg extends React.Component{
         const { getFieldProps } = this.props.form;
 
         return (
-            <div className="reg">
+            <Container className="reg">
                 <TopBar
                     title="重置密码"
                 />
@@ -184,7 +185,7 @@ class Reg extends React.Component{
 
 
 
-            </div>
+            </Container>
         );
     }
 }

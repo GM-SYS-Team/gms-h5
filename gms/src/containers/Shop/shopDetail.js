@@ -7,6 +7,7 @@ import './view/style.less';
 import {WhiteSpace, WingBlank,Button, List,Modal} from 'antd-mobile';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
 import {Link} from 'react-router';
 
 import { createForm } from 'rc-form';
@@ -53,7 +54,7 @@ class Detail extends React.Component{
         let couponUrl = "/shop/"+this.props.params.id+"/coupon";
 
         return (
-            <div className="shop_detail" >
+            <Container className="shop_detail" >
 
                 <TopBar
                     title="店铺管理"
@@ -64,10 +65,22 @@ class Detail extends React.Component{
                     <Item extra="" arrow="horizontal" onClick={this.showModal('modal1')}>店铺二维码</Item>
                 </List>
 
-                <List renderHeader={() => '商品和优惠券'} className="link-list">
+                <List renderHeader={() => '进销存'} className="link-list">
                     <Link to={goodsUrl}>
-                        <Item arrow="horizontal" onClick={() => {}}>商品</Item>
+                        <Item arrow="horizontal" onClick={() => {}}>商品管理</Item>
                     </Link>
+                    <Link to="/shop/manager">
+                        <Item arrow="horizontal" onClick={() => {}}>库存管理</Item>
+                    </Link>
+                    <Link to={"/shop/"+this.props.params.id+"/supplier/list"}>
+                        <Item arrow="horizontal" onClick={() => {}}>供应商管理</Item>
+                    </Link>
+                    <Link to="/shop/manager">
+                        <Item arrow="horizontal" onClick={() => {}}>客户管理</Item>
+                    </Link>
+                </List>
+
+                <List renderHeader={() => '优惠券'} className="link-list">
                     <Link to={couponUrl}>
                         <Item arrow="horizontal" onClick={() => {}}>优惠券</Item>
                     </Link>
@@ -85,7 +98,7 @@ class Detail extends React.Component{
                 >
                     <img style={{width:"100%"}} src={shopDetail.quickMark} alt=""/>
                 </Modal>
-            </div>
+            </Container>
         );
     }
 }

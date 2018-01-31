@@ -7,6 +7,7 @@ import './view/style.less';
 import {WhiteSpace, WingBlank,Button, List,InputItem,Toast} from 'antd-mobile';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
 import {Link} from 'react-router';
 
 import { createForm } from 'rc-form';
@@ -44,7 +45,7 @@ class Add extends React.Component{
         const { getFieldProps } = this.props.form;
 
         return (
-            <div className="shop" >
+            <Container className="shop" >
 
                 <TopBar
                     title="店铺管理"
@@ -67,7 +68,7 @@ class Add extends React.Component{
                     <Button style={{height:40,lineHeight:"40px"}} type="primary" onClick={this.submit}>确定</Button>
                 </WingBlank>
 
-            </div>
+            </Container>
         );
     }
 }

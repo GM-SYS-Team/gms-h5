@@ -3,9 +3,11 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from './actions';
 import './view/style.less';
-import TopBar from "../../components/Container/TopBar";
 
 import {Grid , WhiteSpace, Badge, Flex, List} from 'antd-mobile';
+import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
+
 import {Link} from 'react-router';
 
 const Item = List.Item;
@@ -22,7 +24,7 @@ class Guangdian extends React.Component{
     render(){
 
         return (
-            <div className="index"  >
+            <Container className="index"  >
 
                 <TopBar
                     title="广电"
@@ -39,7 +41,7 @@ class Guangdian extends React.Component{
                     </p>
                     </p>
 
-            </div>
+            </Container>
         );
     }
 }

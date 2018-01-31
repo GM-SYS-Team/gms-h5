@@ -7,6 +7,7 @@ import { browserHistory } from 'react-router'
 
 import {WhiteSpace, WingBlank,Icon, List,Card} from 'antd-mobile';
 import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
 import {Link} from 'react-router';
 import {getCookie, resetCookieExpireDate} from "../../utils/cookie";
 
@@ -32,7 +33,7 @@ class Center extends React.Component{
         let userType = localStorage.getItem("userType");
 
         return (
-            <div className="my" >
+            <Container className="my" >
 
                 <TopBar
                     title="个人信息"
@@ -67,7 +68,7 @@ class Center extends React.Component{
                     <Item extra="1.0.4" onClick={() => {}}>版本号</Item>
                 </List>
 
-            </div>
+            </Container>
         );
     }
 }

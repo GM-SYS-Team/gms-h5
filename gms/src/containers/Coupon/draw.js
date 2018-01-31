@@ -6,6 +6,8 @@ import './view/login.less';
 import { browserHistory } from 'react-router'
 
 import { WingBlank,List, InputItem, WhiteSpace, Button, Modal , Toast,Card  } from 'antd-mobile';
+import Container from "../../components/Container/index";
+
 import { createForm } from 'rc-form';
 import TopBar from "../../components/Container/TopBar";
 import '../../utils/DateFormat'
@@ -155,7 +157,7 @@ class Draw extends React.Component{
         }
 
         return (
-            <div className="draw">
+            <Container className="draw">
                 <TopBar
                     title="领取优惠券"
                     hideback="true"
@@ -228,7 +230,7 @@ class Draw extends React.Component{
 
                 </WingBlank>
 
-            </div>
+            </Container>
         );
     }
 }

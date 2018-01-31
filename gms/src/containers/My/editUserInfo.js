@@ -8,6 +8,7 @@ import { browserHistory } from 'react-router'
 import { WingBlank,List, ImagePicker , WhiteSpace, Button, Flex, Toast, Modal  } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
 import {Link} from 'react-router';
 import {getCookie,setCookie} from '../../utils/cookie';
 
@@ -62,7 +63,7 @@ class Login extends React.Component{
         const { files } = this.state;
 
         return (
-            <div className="login">
+            <Container className="login">
                 <TopBar
                     title="修改个人信息"
                     targetPage="/?selectedTab=dingdan"
@@ -107,7 +108,7 @@ class Login extends React.Component{
 
 
 
-            </div>
+            </Container>
         );
     }
 }

@@ -6,6 +6,8 @@ import './view/style.less';
 import { browserHistory } from 'react-router'
 
 import { WingBlank,List, ActivityIndicator, WhiteSpace, Button, Modal , Toast,Result,Icon  } from 'antd-mobile';
+import Container from "../../components/Container/index";
+
 import { createForm } from 'rc-form';
 import TopBar from "../../components/Container/TopBar";
 import '../../utils/DateFormat'

@@ -7,6 +7,7 @@ import './view/style.less';
 import {WhiteSpace, Modal,ListView, List,SwipeAction,Toast} from 'antd-mobile';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
+import Container from "../../components/Container/index";
 import {Link} from 'react-router';
 
 import { createForm } from 'rc-form';
@@ -128,7 +129,7 @@ class Goods extends React.Component{
 
         return (
 
-            <div className="shop" >
+            <Container className="shop" >
 
                 <TopBar
                     title="商品管理"
@@ -222,7 +223,7 @@ class Goods extends React.Component{
 
                 </List>*/}
 
-            </div>
+            </Container>
         );
     }
 }
