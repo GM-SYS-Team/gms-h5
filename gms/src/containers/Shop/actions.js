@@ -77,6 +77,42 @@ export const listShopGoods = (params) => {
     }
 };
 
+//店铺品类
+export const index_shop_goodstype_list = "index_shop_goodstype_list";
+export const showShopGoodsTypeList = (data) => ({
+    type: index_shop_goodstype_list,
+    data: data
+});
+export const listType = (params) => {
+    return (dispatch) => {
+        post("/app/jxc/goods/listType",false,params,(res)=>{
+            if(res.code === "1"){
+                dispatch(showShopGoodsTypeList(res.data.rows));
+            }else{
+                Toast.info(res.msg,1);
+            }
+        });
+    }
+};
+
+//商品单位
+export const index_shop_goodsunit_list = "index_shop_goodsunit_list";
+export const showShopGoodsUnitList = (data) => ({
+    type: index_shop_goodsunit_list,
+    data: data
+});
+export const listUnit = (params) => {
+    return (dispatch) => {
+        post("/app/jxc/goods/listUnit",false,params,(res)=>{
+            if(res.code === "1"){
+                dispatch(showShopGoodsUnitList(res.data.rows));
+            }else{
+                Toast.info(res.msg,1);
+            }
+        });
+    }
+};
+
 //店铺商品添加
 export const shopGoodsAdd = (params) => {
     return (dispatch) => {

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import * as actions from './actions';
 import './view/style.less';
 
-import {WhiteSpace, Modal,ListView, List,SwipeAction,Flex} from 'antd-mobile';
+import {WhiteSpace, Modal,ListView, List,SwipeAction,Flex,Button} from 'antd-mobile';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
 import Container from "../../components/Container/index";
@@ -15,7 +15,8 @@ const Item = List.Item;
 const Brief = Item.Brief;
 const alert = Modal.alert;
 
-class Goods extends React.Component{
+/*库存列表*/
+class StockList extends React.Component{
 
     constructor(props) {
         super(props);
@@ -91,62 +92,51 @@ class Goods extends React.Component{
 
         //渲染每一行数据
         const row = (rowData, sectionID, rowID) => {
-
             let goodsItemStyle = {color:"#888",fontSize:14,marginTop:10}
-
             return (
-                <SwipeAction
-                    style={{ backgroundColor: 'gray' }}
-                    autoClose
-                    right={[
-                        {
-                            text: '删除',
-                            onPress: () => {
-                                alert('删除', '确定要删除商品'+rowData.name+'吗？', [
-                                    { text: '取消', onPress: () => console.log('cancel') },
-                                    {
-                                        text: '确定',
-                                        onPress: () => new Promise((resolve) => {
-                                            this.delGoods(rowData.id);
-                                            resolve();
-                                        }),
-                                    },
-                                ])
-                            },
-                            style: { backgroundColor: '#F4333C', color: 'white' },
-                        },
-                    ]}
-                >
-                    <Item
-                        align="top"
-                        multipleLine>
+                <Item
+                    align="top"
+                    multipleLine>
 
-                        <div style={{overflow:"auto"}}>
-                            <div style={{float:"left"}}>
-                                <img style={{width:75,height:"auto"}} src={rowData.pictureAddress} alt=""/>
-                            </div>
-                            <div style={{float:"left",paddingLeft:10,width:"70%"}}>
-                                <div>{rowData.name}</div>
-                            </div>
+                    <div style={{overflow:"auto"}}>
+                        <div style={{float:"left"}}>
+                            <img style={{width:75,height:"auto"}} src={rowData.pictureAddress} alt=""/>
                         </div>
-
-                        <div style={{width:"100%"}}>
-                            <Flex style={goodsItemStyle}>
-                                <Flex.Item>进价：{rowData.purchasingPrice}</Flex.Item>
-                                <Flex.Item>售价：{rowData.sellingPrice }</Flex.Item>
-                            </Flex>
-                            <Flex style={goodsItemStyle}>
-                                <Flex.Item>商品品类：{rowData.type}</Flex.Item>
-                                <Flex.Item>商品规格：</Flex.Item>
-                            </Flex>
-                            <Flex style={goodsItemStyle}>
-                                <Flex.Item>商品单位：{rowData.unit}</Flex.Item>
-                                <Flex.Item>库存量：{rowData.inventoryQuantity }</Flex.Item>
-                            </Flex>
+                        <div style={{float:"left",paddingLeft:10,width:"70%"}}>
+                            <div>{rowData.name}</div>
                         </div>
+                    </div>
 
-                    </Item>
-                </SwipeAction>
+                    <div style={{width:"100%"}}>
+                        <Flex style={goodsItemStyle}>
+                            <Flex.Item>进价：{rowData.purchasingPrice}</Flex.Item>
+                            <Flex.Item>售价：{rowData.sellingPrice }</Flex.Item>
+                        </Flex>
+                        <Flex style={goodsItemStyle}>
+                            <Flex.Item>商品品类：{rowData.type}</Flex.Item>
+                            <Flex.Item>商品规格：</Flex.Item>
+                        </Flex>
+                        <Flex style={goodsItemStyle}>
+                            <Flex.Item>商品单位：{rowData.unit}</Flex.Item>
+                            <Flex.Item>库存量：{rowData.inventoryQuantity }</Flex.Item>
+                        </Flex>
+                        <Flex style={goodsItemStyle}>
+                            <Flex.Item>上次进价：{rowData.last_purchasing_price}</Flex.Item>
+                            <Flex.Item>成本均价：</Flex.Item>
+                        </Flex>
+                        <Flex style={goodsItemStyle}>
+                            <Flex.Item>销售总数：{rowData.unit}</Flex.Item>
+                            <Flex.Item>库存总将：{rowData.inventoryQuantity }</Flex.Item>
+                        </Flex>
+
+                        <Flex style={goodsItemStyle}>
+                            <Flex.Item style={{textAlign:"right"}}>
+                                <Button type="primary" inline size="small" style={{ marginRight: '4px' }}>编辑</Button>
+                            </Flex.Item>
+                        </Flex>
+                    </div>
+
+                </Item>
             );
         };
 
@@ -157,16 +147,16 @@ class Goods extends React.Component{
             <Container className="shop" >
 
                 <TopBar
-                    title="商品管理"
+                    title="商品库存管理"
+                    targetPage={"/shop/detail/"+this.props.params.id}
                     rightContent={(
-                        <Link to={addUrl}>新增</Link>
+                        <Link to={"/shop/"+this.props.params.id+"/stock/addOrEdit"}><img style={{width:25}} src={require("../../resource/add.png")} alt=""/></Link>
                     )}
                 />
 
                 <ListView
                     ref={el => this.lv = el}
                     dataSource={this.state.dataSource}
-                    renderHeader={() => <span>商品列表</span>}
                     renderFooter={() => (
                         <div style={{ padding: 30, textAlign: 'center' }}>
                             {this.state.isLoading ? '加载中' : this.state.footerText}
@@ -187,10 +177,8 @@ class Goods extends React.Component{
     }
 }
 
-const GoodsFormWrapper = createForm()(Goods);
-
 //组件名和组件初始化状态
-export const stateKey = "shop";
+export const stateKey = "stock";
 export const initialState = {
     shopGoodsList:[]
 };
@@ -203,4 +191,4 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     listShopGoods:actions.listShopGoods,
     delShopGoods: actions.delShopGoods
 }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(GoodsFormWrapper);
+export default connect(mapStateToProps, mapDispatchToProps)(StockList);

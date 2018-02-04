@@ -69,8 +69,11 @@ class Detail extends React.Component{
                     <Link to={goodsUrl}>
                         <Item arrow="horizontal" onClick={() => {}}>商品管理</Item>
                     </Link>
-                    <Link to="/shop/manager">
+                    <Link to={"/shop/"+this.props.params.id+"/stock/list"}>
                         <Item arrow="horizontal" onClick={() => {}}>库存管理</Item>
+                    </Link>
+                    <Link to={"/shop/"+this.props.params.id+"/order/list"}>
+                        <Item arrow="horizontal" onClick={() => {}}>订单管理</Item>
                     </Link>
                     <Link to={"/shop/"+this.props.params.id+"/supplier/list"}>
                         <Item arrow="horizontal" onClick={() => {}}>供应商管理</Item>
