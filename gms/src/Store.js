@@ -6,12 +6,13 @@ import resetEnhancer from './utils/enhancer/reset.js';
 
 import {stateKey as loginStateKey, reducer as loginReducer, initialState as loginState} from './containers/Login/';
 import {stateKey as salesStateKey, reducer as salesReducer, initialState as salesState} from './containers/Index/';
-import {stateKey as orderStateKey, reducer as orderReducer, initialState as orderState} from './containers/My/';
+import {stateKey as myStateKey, reducer as myReducer, initialState as myState} from './containers/My/';
 import {stateKey as shopStateKey, reducer as shopReducer, initialState as shopState} from './containers/Shop/';
 import {stateKey as couponStateKey, reducer as couponReducer, initialState as couponState} from './containers/Coupon/';
 import {stateKey as supplierStateKey, reducer as supplierReducer, initialState as supplierState} from './containers/Supplier/';
 import {stateKey as customerStateKey, reducer as customerReducer, initialState as customerState} from './containers/Customer/';
 import {stateKey as stockStateKey, reducer as stockReducer, initialState as stockState} from './containers/Stock/';
+import {stateKey as orderStateKey, reducer as orderReducer, initialState as orderState} from './containers/Order/';
 
 
 
@@ -23,12 +24,13 @@ const originalReducers = {
     routing: routerReducer,
     [loginStateKey]: loginReducer,
     [salesStateKey]: salesReducer,
-    [orderStateKey]: orderReducer,
+    [myStateKey]: myReducer,
     [shopStateKey]: shopReducer,
     [couponStateKey]: couponReducer,
     [supplierStateKey]: supplierReducer,
     [customerStateKey]: customerReducer,
     [stockStateKey]: stockReducer,
+    [orderStateKey]: orderReducer,
 };
 const reducer = combineReducers(originalReducers);
 
@@ -39,12 +41,13 @@ const reducer = combineReducers(originalReducers);
 const initialState = {
     [loginStateKey]: loginState,
     [salesStateKey]: salesState,
-    [orderStateKey]: orderState,
+    [myStateKey]: myState,
     [shopStateKey]: shopState,
     [couponStateKey]: couponState,
     [supplierStateKey]: supplierState,
     [customerStateKey]: customerState,
     [stockStateKey]: stockState,
+    [orderStateKey]: orderState,
 };
 
 

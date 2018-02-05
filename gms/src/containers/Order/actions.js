@@ -5,6 +5,25 @@ import {getCookie,setCookie} from '../../utils/cookie';
 import {Toast } from 'antd-mobile';
 
 
+//店铺订单列表
+export const index_shop_order_list = "index_shop_order_list";
+export const showShopOrderList = (data) => ({
+    type: index_shop_order_list,
+    data: data
+});
+
+export const listShopOrder = (params) => {
+    return (dispatch) => {
+        post("/app/jxc/saleList/list",false,params,(res)=>{
+            if(res.code === "1"){
+                dispatch(showShopOrderList(res.data.rows));
+            }else{
+                Toast.info(res.msg,1);
+            }
+        });
+    }
+};
+
 //店铺商品列表
 export const index_shop_goods_list = "index_shop_goods_list";
 export const showShopGoodsList = (data) => ({
@@ -24,18 +43,7 @@ export const listShopGoods = (params) => {
     }
 };
 
-//店铺商品添删除
-export const delShopGoods = (params,callBack) => {
-    return (dispatch) => {
-        post("/app/goods/delete",false,params,(res)=>{
-            if(res.code === "1"){
-                callBack();
-            }else{
-                Toast.info(res.msg,1);
-            }
-        });
-    }
-};
+
 
 
 //供应商列表

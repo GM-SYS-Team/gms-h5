@@ -213,6 +213,20 @@ const getStockAddOrEditpage = (nextState, callback) => {
     }, 'stockAddOrEdit');
 };
 
+/**
+ *  订单
+ */
+const getOrderListpage = (nextState, callback) => {
+    require.ensure([], function(require) {
+        callback(null, require('./containers/Order/index').orderList);
+    }, 'orderList');
+};
+const getOrderAddOrEditpage = (nextState, callback) => {
+    require.ensure([], function(require) {
+        callback(null, require('./containers/Order/index').orderAddOrEdit);
+    }, 'orderAddOrEdit');
+};
+
 
 
 /**
@@ -292,6 +306,8 @@ const Routes = () => (
             <Route path="/shop/:id/customer/addOrEdit" getComponent={getCustomerAddOrEditpage} />
             <Route path="/shop/:id/stock/list" getComponent={getStockListpage} />
             <Route path="/shop/:id/stock/addOrEdit" getComponent={getStockAddOrEditpage} />
+            <Route path="/shop/:id/order/list" getComponent={getOrderListpage} />
+            <Route path="/shop/:id/order/addOrEdit" getComponent={getOrderAddOrEditpage} />
 
         </Route>
 

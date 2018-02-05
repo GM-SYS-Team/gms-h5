@@ -16,7 +16,7 @@ const Brief = Item.Brief;
 const alert = Modal.alert;
 
 /*库存列表*/
-class StockList extends React.Component{
+class OrderList extends React.Component{
 
     constructor(props) {
         super(props);
@@ -44,9 +44,9 @@ class StockList extends React.Component{
     componentWillReceiveProps(nextProps){
         //为数据源增加数据
         let datas = this.state.pageData;
-        datas = datas.concat(nextProps.shopGoodsList);
+        datas = datas.concat(nextProps.shopOrderList);
         let footerText = this.state.footerText;
-        if(nextProps.shopGoodsList.length == 0){
+        if(nextProps.shopOrderList.length == 0){
             footerText = "没有更多数据";
         }
         this.setState({
@@ -60,7 +60,7 @@ class StockList extends React.Component{
     //加载列表数据
     loadingData = () =>{
         //加载用户店铺列表
-        this.props.listShopGoods({
+        this.props.listShopOrder({
             shopId:this.props.params.id,
             page:this.state.pageNum,
             rows:this.state.pageSize
@@ -74,19 +74,6 @@ class StockList extends React.Component{
         this.setState({pageNum: pageNum});
         this.loadingData();
     }
-
-    //删除商品
-    delGoods = (goodsId) =>{
-        //删除
-        this.props.delShopGoods({goodsId:goodsId,shopId:this.props.params.id},() => {
-            //成功回调，从新加载数据
-            this.setState({
-                pageData:[],
-                pageNum: 1
-            });
-            this.loadingData();
-        });
-    };
 
     render(){
 
@@ -147,10 +134,10 @@ class StockList extends React.Component{
             <Container className="shop" >
 
                 <TopBar
-                    title="商品库存管理"
+                    title="订单列表"
                     targetPage={"/shop/detail/"+this.props.params.id}
                     rightContent={(
-                        <Link to={"/shop/"+this.props.params.id+"/stock/addOrEdit"}><img style={{width:25}} src={require("../../resource/add.png")} alt=""/></Link>
+                        <Link to={"/shop/"+this.props.params.id+"/order/addOrEdit"}><img style={{width:25}} src={require("../../resource/add.png")} alt=""/></Link>
                     )}
                 />
 
@@ -178,17 +165,16 @@ class StockList extends React.Component{
 }
 
 //组件名和组件初始化状态
-export const stateKey = "stock";
+export const stateKey = "order";
 export const initialState = {
-    shopGoodsList:[]
+    shopOrderList:[]
 };
 
 //注入state和actions
 const mapStateToProps = (state) => ({
-    shopGoodsList:state[stateKey].shopGoodsList
+    shopOrderList:state[stateKey].shopOrderList
 });
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    listShopGoods:actions.listShopGoods,
-    delShopGoods: actions.delShopGoods
+    listShopOrder:actions.listShopOrder,
 }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(StockList);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderList);

@@ -11,10 +11,17 @@ import dealPage from '../../utils/dealPage';
 export default (state = {}, action) => {
     switch (action.type) {
 
+        //门店订单列表
+        case actions.index_shop_order_list:{
+            return {...state,shopOrderList:action.data}
+        }
+
         //门店商品列表
         case actions.index_shop_goods_list:{
             return {...state,shopGoodsList:action.data}
         }
+
+
 
         //供应商列表
         case actions.supplier_list:{

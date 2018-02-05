@@ -5,7 +5,7 @@ import {Link} from 'react-router';
 import * as actions from './actions';
 import './view/style.less';
 
-import {WhiteSpace, WingBlank,Button, List,InputItem,ImagePicker,Toast,ActivityIndicator } from 'antd-mobile';
+import {WhiteSpace, WingBlank,Button, List,InputItem,ImagePicker,Toast,ActivityIndicator, Picker, Switch  } from 'antd-mobile';
 import TopBar from "../../components/Container/TopBar";
 import Container from "../../components/Container/index";
 
@@ -21,20 +21,32 @@ class AddOrEdit extends React.Component{
     constructor(props) {
         super(props);
 
-        //编辑的值
-        let stock = localStorage.getItem("currentStock");
-        if(typeof stock === "undefined" || stock == null){
-            stock = {};
-        }else{
-            stock = JSON.parse(stock);
-        }
-        localStorage.removeItem("currentStock");
-
         this.state = {
             formError:{},
             loading:false,
-            stock:stock
+            stock:{},
+            selectedGoods:{}
         }
+    }
+
+    componentDidMount(){
+        //加载商品列表
+        this.props.listShopGoods({shopId:this.props.params.id});
+        //加载供应商列表
+        this.props.listSupplier({shopId:this.props.params.id});
+    }
+
+    goodsPickerChange = (value) =>{
+        let goodsId = value[0];
+        let shopGoodsList = this.props.shopGoodsList;
+        shopGoodsList.forEach((item,index)=>{
+            if(item.id == goodsId){
+                console.log(item);
+                this.setState({
+                    selectedGoods:item
+                });
+            }
+        });
     }
 
     submit = () => {
@@ -42,12 +54,10 @@ class AddOrEdit extends React.Component{
             if (!error) {
                 this.setState({formError: {}})
                 values.shopId = this.props.params.id;
-                if(typeof this.state.stock.id !== "undefined"){
-                    values.id =  this.state.stock.id;
-                    //this.props.editStock(values);
-                }else{
-                    //this.props.addStock(values);
-                }
+                values.goodsId = values.goodsId[0];
+                values.supplierId = values.supplier[0];
+                delete values.supplier;
+                this.props.addStock(values);
 
             }else{
                 this.setState({formError: error})
@@ -64,6 +74,29 @@ class AddOrEdit extends React.Component{
     render(){
         const { getFieldProps } = this.props.form;
 
+        //格式化商品列表
+        let shopGoodsList = this.props.shopGoodsList;
+        let shopGoodsListData = [];
+        shopGoodsList.forEach((item,index)=>{
+            shopGoodsListData.push({
+                label:item.name,
+                value:item.id,
+            })
+        });
+
+        //格式化供应商列表
+        let supplierList = this.props.supplierList;
+        console.log(supplierList);
+        let supplierListData = [];
+        supplierList.forEach((item,index)=>{
+            supplierListData.push({
+                label:item.name,
+                value:item.id,
+            })
+        });
+
+
+
         return (
             <Container className="stock add" >
 
@@ -73,55 +106,80 @@ class AddOrEdit extends React.Component{
 
                 <List className="link-list">
 
-                    <InputItem
-                        {...getFieldProps('name', {
-                            initialValue: this.state.stock.name,
-                            rules: [{ required: true,message:"请输入库存名称"}],
+                    <Picker
+                        data={shopGoodsListData}
+                        cols={1}
+                        {...getFieldProps('goodsId', {
+                            initialValue: '',
+                            rules: [{ required: true,message:"请选择商品"}],
                         })}
-                        placeholder="点击填写"
-                        error={typeof this.state.formError["name"] !== "undefined"}
-                        onErrorClick={this.onErrorClick.bind(this,"name")}
-                    >库存名称</InputItem>
+                        className="forss"
+                        placeholder="请选择商品"
+                        error={typeof this.state.formError["goodsId"] !== "undefined"}
+                        onErrorClick={this.onErrorClick.bind(this,"goodsId")}
+                        onOk={(val)=>{this.goodsPickerChange(val)}}
+                    >
+                        <List.Item arrow="horizontal">商品</List.Item>
+                    </Picker>
+
+                    <Item extra={this.state.selectedGoods.lastPurchasingPrice}>上次进价</Item>
+                    <Item extra={this.state.selectedGoods.inventoryQuantity}>当前库存</Item>
 
                     <InputItem
-                        {...getFieldProps('contact', {
-                            initialValue: this.state.stock.contact,
-                            rules: [{ required: true,message:"请输入联系人"}],
-                        })}
-                        placeholder="点击填写"
-                        error={typeof this.state.formError["contact"] !== "undefined"}
-                        onErrorClick={this.onErrorClick.bind(this,"contact")}
-                    >联系人</InputItem>
-
-                    <InputItem
-                        {...getFieldProps('number', {
+                        {...getFieldProps('price', {
                             initialValue: this.state.stock.number,
-                            rules: [{ required: true,message:"请输入电话"}],
+                            rules: [{ required: true,message:"请输入单价"}],
                         })}
                         placeholder="点击填写"
-                        error={typeof this.state.formError["number"] !== "undefined"}
-                        onErrorClick={this.onErrorClick.bind(this,"number")}
-                    >电话</InputItem>
+                        error={typeof this.state.formError["price"] !== "undefined"}
+                        onErrorClick={this.onErrorClick.bind(this,"price")}
+                    >单价</InputItem>
 
                     <InputItem
-                        {...getFieldProps('address', {
-                            initialValue: this.state.stock.address,
-                            rules: [{ required: true,message:"请输入联系地址"}],
+                        {...getFieldProps('num', {
+                            initialValue: this.state.stock.number,
+                            rules: [{ required: true,message:"请输入进货数量"}],
                         })}
                         placeholder="点击填写"
-                        error={typeof this.state.formError["address"] !== "undefined"}
-                        onErrorClick={this.onErrorClick.bind(this,"address")}
-                    >联系地址</InputItem>
+                        error={typeof this.state.formError["num"] !== "undefined"}
+                        onErrorClick={this.onErrorClick.bind(this,"num")}
+                    >数量</InputItem>
 
-                    <InputItem
-                        {...getFieldProps('remarks', {
-                            initialValue: this.state.stock.remarks,
-                            rules: [{ required: false,message:"请输入备注"}],
+                    <Picker
+                        data={supplierListData}
+                        cols={1}
+                        {...getFieldProps('supplier', {
+                            initialValue: '',
+                            rules: [{ required: true,message:"请选择供应商"}],
+                        })}
+                        className="forss"
+                        placeholder="请选择供应商"
+                        error={typeof this.state.formError["supplier"] !== "undefined"}
+                        onErrorClick={this.onErrorClick.bind(this,"supplier")}
+                        onOk={(val)=>{this.goodsPickerChange(val)}}
+                    >
+                        <List.Item arrow="horizontal">供应商</List.Item>
+                    </Picker>
+
+                   {/* <InputItem
+                        {...getFieldProps('model', {
+                            initialValue: this.state.stock.contact,
+                            rules: [{ required: true,message:"请输入规格说明"}],
                         })}
                         placeholder="点击填写"
-                        error={typeof this.state.formError["remarks"] !== "undefined"}
-                        onErrorClick={this.onErrorClick.bind(this,"remarks")}
-                    >备注</InputItem>
+                        error={typeof this.state.formError["model"] !== "undefined"}
+                        onErrorClick={this.onErrorClick.bind(this,"model")}
+                    >规格说明</InputItem>*/}
+
+                    <List.Item
+                        extra={<Switch
+                            {...getFieldProps('Switch1', {
+                                initialValue: true,
+                                valuePropName: 'checked',
+                            })}
+                            onClick={(checked) => { console.log(checked); }}
+                        />}
+                    >是否付款</List.Item>
 
                 </List>
 
@@ -141,13 +199,19 @@ const AddOrEditFormWrapper = createForm()(AddOrEdit);
 export const stateKey = "stock";
 //初始化state
 export const initialState = {
+    shopGoodsList:[],
+    supplierList:[],
 };
 //注入state
 const mapStateToProps = (state) => ({
+    shopGoodsList:state[stateKey].shopGoodsList,
+    supplierList:state[stateKey].supplierList,
 });
 //注入action
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    /*addStock:actions.addStock,
-    editStock: actions.editStock,*/
+    listShopGoods:actions.listShopGoods,
+    listSupplier:actions.listSupplier,
+    addStock:actions.addStock,
+    /*editStock: actions.editStock,*/
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(AddOrEditFormWrapper);

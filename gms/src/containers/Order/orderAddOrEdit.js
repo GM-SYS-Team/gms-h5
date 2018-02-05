@@ -15,8 +15,8 @@ const Item = List.Item;
 const Brief = Item.Brief;
 const alert = Modal.alert;
 
-/*库存列表*/
-class StockList extends React.Component{
+/*生成订单-选择商品*/
+class OrderAddOrEdit extends React.Component{
 
     constructor(props) {
         super(props);
@@ -75,19 +75,6 @@ class StockList extends React.Component{
         this.loadingData();
     }
 
-    //删除商品
-    delGoods = (goodsId) =>{
-        //删除
-        this.props.delShopGoods({goodsId:goodsId,shopId:this.props.params.id},() => {
-            //成功回调，从新加载数据
-            this.setState({
-                pageData:[],
-                pageNum: 1
-            });
-            this.loadingData();
-        });
-    };
-
     render(){
 
         //渲染每一行数据
@@ -124,16 +111,6 @@ class StockList extends React.Component{
                             <Flex.Item>上次进价：{rowData.last_purchasing_price}</Flex.Item>
                             <Flex.Item>成本均价：</Flex.Item>
                         </Flex>
-                        <Flex style={goodsItemStyle}>
-                            <Flex.Item>销售总数：{rowData.unit}</Flex.Item>
-                            <Flex.Item>库存总将：{rowData.inventoryQuantity }</Flex.Item>
-                        </Flex>
-
-                        {/*<Flex style={goodsItemStyle}>
-                            <Flex.Item style={{textAlign:"right"}}>
-                                <Button type="primary" inline size="small" style={{ marginRight: '4px' }}>编辑</Button>
-                            </Flex.Item>
-                        </Flex>*/}
                     </div>
 
                 </Item>
@@ -147,11 +124,8 @@ class StockList extends React.Component{
             <Container className="shop" >
 
                 <TopBar
-                    title="商品库存管理"
+                    title="选择商品"
                     targetPage={"/shop/detail/"+this.props.params.id}
-                    rightContent={(
-                        <Link to={"/shop/"+this.props.params.id+"/stock/addOrEdit"}><img style={{width:25}} src={require("../../resource/add.png")} alt=""/></Link>
-                    )}
                 />
 
                 <ListView
@@ -178,7 +152,7 @@ class StockList extends React.Component{
 }
 
 //组件名和组件初始化状态
-export const stateKey = "stock";
+export const stateKey = "order";
 export const initialState = {
     shopGoodsList:[]
 };
@@ -188,7 +162,6 @@ const mapStateToProps = (state) => ({
     shopGoodsList:state[stateKey].shopGoodsList
 });
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    listShopGoods:actions.listShopGoods,
-    delShopGoods: actions.delShopGoods
+    listShopGoods:actions.listShopGoods
 }, dispatch);
-export default connect(mapStateToProps, mapDispatchToProps)(StockList);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderAddOrEdit);
