@@ -137,7 +137,7 @@ class Goods extends React.Component{
                             </Flex>
                             <Flex style={goodsItemStyle}>
                                 <Flex.Item>商品品类：{rowData.type}</Flex.Item>
-                                <Flex.Item>商品规格：</Flex.Item>
+                                <Flex.Item>商品规格：{rowData.model}</Flex.Item>
                             </Flex>
                             <Flex style={goodsItemStyle}>
                                 <Flex.Item>商品单位：{rowData.unit}</Flex.Item>

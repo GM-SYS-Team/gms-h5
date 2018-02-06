@@ -8,10 +8,9 @@ import './view/style.less';
 
 import { WhiteSpace, WingBlank, Modal, List, ListView, SwipeAction, SearchBar } from 'antd-mobile';
 import Container from "../../components/Container/index";
-import pinyin from 'pinyin';
+import '../../utils/pinyin';
 import {groupSectionAndRows} from "../../components/ArrayData/group";
 
-import { province } from 'antd-mobile-demo-data';
 import { StickyContainer, Sticky } from 'react-sticky';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
@@ -67,8 +66,7 @@ class CustomerList extends React.Component{
     }
 
     onSearch = (val) => {
-        const pd = { ...province };
-        Object.keys(pd).forEach((item) => {
+       /* Object.keys(pd).forEach((item) => {
             const arr = pd[item].filter(jj => jj.spell.toLocaleLowerCase().indexOf(val) > -1);
             if (!arr.length) {
                 delete pd[item];
@@ -78,17 +76,28 @@ class CustomerList extends React.Component{
         });
         this.setState({
             inputValue: val,
-            /*dataSource: genData(this.state.dataSource, pd),*/
-        });
+            /!*dataSource: genData(this.state.dataSource, pd),*!/
+        });*/
     }
 
     render(){
 
+        //兼容订单选择客户
+        let from = this.props.location.query.from;
+        let isFromOrder = (typeof from !== "undefined" && from == "order");
+
+        let title = "客户管理";
+        let itemClick = ()=>{};
+        if(isFromOrder){
+            title = "选择收货人";
+            itemClick =(id)=>{
+                browserHistory.push("/shop/"+this.props.params.id+"/order/balance?from=order&goodsIds="+this.props.location.query.goodsIds+"&supplierId="+id);
+            }}
         return (
             <Container className="customer list">
 
                 <TopBar
-                    title="客户管理"
+                    title={title}
                     targetPage={"/shop/detail/"+this.props.params.id}
                     rightContent={(
                         <Link to={"/shop/"+this.props.params.id+"/customer/addOrEdit"}><img style={{width:25}} src={require("../../resource/add.png")} alt=""/></Link>
@@ -165,7 +174,9 @@ class CustomerList extends React.Component{
                                     },
                                 ]}
                             >
-                                <Item extra={rowData.number}>{rowData.name}</Item>
+                                <Item
+                                    onClick={itemClick.bind(this,rowData.id)}
+                                    extra={rowData.number}>{rowData.name}</Item>
                             </SwipeAction>
                         )}
                         quickSearchBarTop={{}}

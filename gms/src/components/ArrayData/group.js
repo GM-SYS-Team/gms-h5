@@ -1,5 +1,5 @@
 import React from 'react';
-import pinyin from 'pinyin';
+import '../../utils/pinyin';
 
 
 export const groupSectionAndRows =(dataSource,dataList)=>{
@@ -9,7 +9,7 @@ export const groupSectionAndRows =(dataSource,dataList)=>{
 
     dataList.forEach((item, index)=>{
         dataBlob[item.id] = item;
-        let itemFirstLetter = pinyin(item.name,{style: pinyin.STYLE_FIRST_LETTER})[0][0].toLocaleUpperCase();
+        let itemFirstLetter = window.Utils.CSpell.getSpell(item.name.substring(0,1),function(charactor,spell){ return spell[1]}).substring(0,1).toLocaleUpperCase();
         let hasSection = false;
         sectionIDs.forEach((item, index) => {
             if(itemFirstLetter == item){
@@ -31,7 +31,7 @@ export const groupSectionAndRows =(dataSource,dataList)=>{
 
     dataList.forEach((item, index)=>{
         dataBlob[item.id] = item;
-        let itemFirstLetter = pinyin(item.name,{style: pinyin.STYLE_FIRST_LETTER})[0][0];
+        let itemFirstLetter = window.Utils.CSpell.getSpell(item.name.substring(0,1),function(charactor,spell){ return spell[1]}).substring(0,1).toLocaleUpperCase();
         let sectionIndex = sectionIDs.indexOf(itemFirstLetter.toLocaleUpperCase());
         if(sectionIndex !== -1){
             rowIDs[sectionIndex].push(item.id);

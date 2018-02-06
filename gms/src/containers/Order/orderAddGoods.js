@@ -3,17 +3,20 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from './actions';
 import './view/style.less';
+import { browserHistory } from 'react-router'
 
-import {WhiteSpace, Modal,ListView, List,SwipeAction,Flex,Button} from 'antd-mobile';
+import {WingBlank, WhiteSpace, Modal,ListView, List,SwipeAction,Flex,Button,Checkbox,Toast} from 'antd-mobile';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
 import Container from "../../components/Container/index";
 import {Link} from 'react-router';
 
 import { createForm } from 'rc-form';
+
 const Item = List.Item;
 const Brief = Item.Brief;
 const alert = Modal.alert;
+const CheckboxItem = Checkbox.CheckboxItem;
 
 /*生成订单-选择商品*/
 class OrderAddOrEdit extends React.Component{
@@ -35,6 +38,8 @@ class OrderAddOrEdit extends React.Component{
             pageSize:30,
             footerText:"加载完成"
         };
+
+        this.selectedGoodsId = [];
     }
 
     componentDidMount(){
@@ -73,6 +78,33 @@ class OrderAddOrEdit extends React.Component{
         pageNum++;
         this.setState({pageNum: pageNum});
         this.loadingData();
+    };
+
+    //多选框选中
+    onCheckBoxChange = (e, goods) =>{
+        let checked = e.target.checked;
+        if(checked){
+            this.selectedGoodsId.push({
+                id:goods.id,
+                name:goods.name,
+                sellingPrice:goods.sellingPrice,
+                purchasingPrice:goods.purchasingPrice
+            });
+        }else{
+            this.selectedGoodsId.forEach((item,index)=>{
+                if(item.id == goods.id){
+                    this.selectedGoodsId.splice(index,1);
+                }
+            });
+        }
+    };
+
+    nextStep = () =>{
+        if(this.selectedGoodsId.length <= 0){
+            Toast.info("请选择商品",1);
+        }else{
+            browserHistory.push("/shop/"+this.props.params.id+"/customer/list?from=order&goodsIds="+JSON.stringify(this.selectedGoodsId));
+        }
     }
 
     render(){
@@ -81,43 +113,38 @@ class OrderAddOrEdit extends React.Component{
         const row = (rowData, sectionID, rowID) => {
             let goodsItemStyle = {color:"#888",fontSize:14,marginTop:10}
             return (
-                <Item
-                    align="top"
-                    multipleLine>
+                <CheckboxItem key={rowData.id} onChange={(e) => this.onCheckBoxChange(e,rowData)}>
+                    <Item
+                        align="top"
+                        multipleLine>
 
-                    <div style={{overflow:"auto"}}>
-                        <div style={{float:"left"}}>
-                            <img style={{width:75,height:"auto"}} src={rowData.pictureAddress} alt=""/>
+                        <div style={{overflow:"auto"}}>
+                            <div style={{float:"left"}}>
+                                <img style={{width:75,height:"auto"}} src={rowData.pictureAddress} alt=""/>
+                            </div>
+                            <div style={{float:"left",paddingLeft:10,width:"70%"}}>
+                                <div>{rowData.name}</div>
+                            </div>
                         </div>
-                        <div style={{float:"left",paddingLeft:10,width:"70%"}}>
-                            <div>{rowData.name}</div>
+
+                        <div style={{width:"100%"}}>
+                            <Flex style={goodsItemStyle}>
+                                <Flex.Item>进价：{rowData.purchasingPrice}</Flex.Item>
+                                <Flex.Item>售价：{rowData.sellingPrice }</Flex.Item>
+                            </Flex>
+                            <Flex style={goodsItemStyle}>
+                                <Flex.Item>商品品类：{rowData.type}</Flex.Item>
+                                <Flex.Item>商品规格：{rowData.model}</Flex.Item>
+                            </Flex>
+                            <Flex style={goodsItemStyle}>
+                                <Flex.Item>商品单位：{rowData.unit}</Flex.Item>
+                                <Flex.Item>库存量：{rowData.inventoryQuantity }</Flex.Item>
+                            </Flex>
                         </div>
-                    </div>
-
-                    <div style={{width:"100%"}}>
-                        <Flex style={goodsItemStyle}>
-                            <Flex.Item>进价：{rowData.purchasingPrice}</Flex.Item>
-                            <Flex.Item>售价：{rowData.sellingPrice }</Flex.Item>
-                        </Flex>
-                        <Flex style={goodsItemStyle}>
-                            <Flex.Item>商品品类：{rowData.type}</Flex.Item>
-                            <Flex.Item>商品规格：</Flex.Item>
-                        </Flex>
-                        <Flex style={goodsItemStyle}>
-                            <Flex.Item>商品单位：{rowData.unit}</Flex.Item>
-                            <Flex.Item>库存量：{rowData.inventoryQuantity }</Flex.Item>
-                        </Flex>
-                        <Flex style={goodsItemStyle}>
-                            <Flex.Item>上次进价：{rowData.last_purchasing_price}</Flex.Item>
-                            <Flex.Item>成本均价：</Flex.Item>
-                        </Flex>
-                    </div>
-
-                </Item>
+                    </Item>
+                </CheckboxItem>
             );
         };
-
-        let addUrl = "/shop/"+this.props.params.id+"/goodsAdd";
 
         return (
 
@@ -145,6 +172,13 @@ class OrderAddOrEdit extends React.Component{
                     onEndReached={this.onEndReached}
                     onEndReachedThreshold={10}
                 />
+
+                <div style={{position:"fixed",bottom:0,width:"100%",padding:"10px 5%",backgroundColor:"#fff"}}>
+                    <Button
+                        style={{height:40,lineHeight:"40px",width:"90%"}}
+                        type="primary"
+                        onClick={this.nextStep}>下一步</Button>
+                </div>
 
             </Container>
         );

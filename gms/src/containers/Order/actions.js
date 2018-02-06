@@ -24,6 +24,19 @@ export const listShopOrder = (params) => {
     }
 };
 
+//新增订单
+export const balance = (params) => {
+    return (dispatch) => {
+        post("/app/jxc/saleList/sale",false,params,(res)=>{
+            if(res.code === "1"){
+                browserHistory.push("/shop/"+params.shopId+"/order/list")
+            }else{
+                Toast.info(res.msg,1);
+            }
+        });
+    }
+};
+
 //店铺商品列表
 export const index_shop_goods_list = "index_shop_goods_list";
 export const showShopGoodsList = (data) => ({

@@ -137,7 +137,7 @@ class OrderList extends React.Component{
                     title="订单列表"
                     targetPage={"/shop/detail/"+this.props.params.id}
                     rightContent={(
-                        <Link to={"/shop/"+this.props.params.id+"/order/addOrEdit"}><img style={{width:25}} src={require("../../resource/add.png")} alt=""/></Link>
+                        <Link to={"/shop/"+this.props.params.id+"/order/addGoods"}><img style={{width:25}} src={require("../../resource/add.png")} alt=""/></Link>
                     )}
                 />
 

@@ -28,7 +28,8 @@ export const addCustomer = (params) => {
     return (dispatch) => {
         post("/app/jxc/customer/save",false,params,(res)=>{
             if(res.code === "1"){
-                browserHistory.push("/shop/"+params.shopId+"/customer/list")
+                //browserHistory.push("/shop/"+params.shopId+"/customer/list")
+                window.history.back();
             }else{
                 Toast.info(res.msg,1);
             }

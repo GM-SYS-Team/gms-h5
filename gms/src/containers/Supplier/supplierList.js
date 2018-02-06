@@ -8,10 +8,8 @@ import './view/style.less';
 
 import { WhiteSpace, WingBlank, Modal, List, ListView, SwipeAction, SearchBar } from 'antd-mobile';
 import Container from "../../components/Container/index";
-import pinyin from 'pinyin';
 import {groupSectionAndRows} from "../../components/ArrayData/group";
 
-import { province } from 'antd-mobile-demo-data';
 import { StickyContainer, Sticky } from 'react-sticky';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
@@ -67,7 +65,7 @@ class SupplierList extends React.Component{
     }
 
     onSearch = (val) => {
-        const pd = { ...province };
+       /* const pd = { ...province };
         Object.keys(pd).forEach((item) => {
             const arr = pd[item].filter(jj => jj.spell.toLocaleLowerCase().indexOf(val) > -1);
             if (!arr.length) {
@@ -78,8 +76,8 @@ class SupplierList extends React.Component{
         });
         this.setState({
             inputValue: val,
-            /*dataSource: genData(this.state.dataSource, pd),*/
-        });
+            /!*dataSource: genData(this.state.dataSource, pd),*!/
+        });*/
     }
 
     render(){

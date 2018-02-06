@@ -4,10 +4,12 @@ import reducer from './reducer';
 import {stateKey} from './orderList.js';
 
 import orderList from './orderList.js';
-import orderAddOrEdit from './orderAddOrEdit.js';
+import orderAddGoods from './orderAddGoods.js';
+import orderBalance from './orderBalance.js';
 
 import {initialState as initialStateorderList} from './orderList.js';
-import {initialState as initialStateorderAddOrEdit} from './orderAddOrEdit.js';
+import {initialState as initialStateorderAddOrEdit} from './orderAddGoods.js';
+import {initialState as initialStateorderBalance} from './orderBalance.js';
 
 /**
  * 组件出口文件
@@ -19,8 +21,10 @@ import {initialState as initialStateorderAddOrEdit} from './orderAddOrEdit.js';
 const initialState = Object.assign(
     initialStateorderList,
     initialStateorderAddOrEdit,
+    initialStateorderBalance,
 );
 export {
     orderList,
-    orderAddOrEdit,
+    orderAddGoods,
+    orderBalance,
     actions, reducer, initialState,stateKey};

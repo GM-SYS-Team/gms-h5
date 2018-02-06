@@ -221,11 +221,17 @@ const getOrderListpage = (nextState, callback) => {
         callback(null, require('./containers/Order/index').orderList);
     }, 'orderList');
 };
-const getOrderAddOrEditpage = (nextState, callback) => {
+const getOrderAddGoodspage = (nextState, callback) => {
     require.ensure([], function(require) {
-        callback(null, require('./containers/Order/index').orderAddOrEdit);
-    }, 'orderAddOrEdit');
+        callback(null, require('./containers/Order/index').orderAddGoods);
+    }, 'orderAddGoods');
 };
+const getOrderBalancepage = (nextState, callback) => {
+    require.ensure([], function(require) {
+        callback(null, require('./containers/Order/index').orderBalance);
+    }, 'orderBalance');
+};
+
 
 
 
@@ -307,7 +313,8 @@ const Routes = () => (
             <Route path="/shop/:id/stock/list" getComponent={getStockListpage} />
             <Route path="/shop/:id/stock/addOrEdit" getComponent={getStockAddOrEditpage} />
             <Route path="/shop/:id/order/list" getComponent={getOrderListpage} />
-            <Route path="/shop/:id/order/addOrEdit" getComponent={getOrderAddOrEditpage} />
+            <Route path="/shop/:id/order/addGoods" getComponent={getOrderAddGoodspage} />
+            <Route path="/shop/:id/order/balance" getComponent={getOrderBalancepage} />
 
         </Route>
 
