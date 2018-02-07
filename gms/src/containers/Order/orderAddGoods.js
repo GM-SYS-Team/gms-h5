@@ -133,7 +133,7 @@ class OrderAddOrEdit extends React.Component{
                                 <Flex.Item>售价：{rowData.sellingPrice }</Flex.Item>
                             </Flex>
                             <Flex style={goodsItemStyle}>
-                                <Flex.Item>商品品类：{rowData.type}</Flex.Item>
+                                <Flex.Item>商品品类：</Flex.Item>
                                 <Flex.Item>商品规格：{rowData.model}</Flex.Item>
                             </Flex>
                             <Flex style={goodsItemStyle}>

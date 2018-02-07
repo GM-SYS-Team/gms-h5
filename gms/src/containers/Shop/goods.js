@@ -92,7 +92,11 @@ class Goods extends React.Component{
         //渲染每一行数据
         const row = (rowData, sectionID, rowID) => {
 
-            let goodsItemStyle = {color:"#888",fontSize:14,marginTop:10}
+            let goodsItemStyle = {color:"#888",fontSize:14,marginTop:10};
+            let typeName = "";
+            if(typeof rowData.type !== "undefined" && rowData.type !=null){
+                typeName = rowData.type.name;
+            }
 
             return (
                 <SwipeAction
@@ -136,7 +140,7 @@ class Goods extends React.Component{
                                 <Flex.Item>售价：{rowData.sellingPrice }</Flex.Item>
                             </Flex>
                             <Flex style={goodsItemStyle}>
-                                <Flex.Item>商品品类：{rowData.type}</Flex.Item>
+                                <Flex.Item>商品品类：{typeName}</Flex.Item>
                                 <Flex.Item>商品规格：{rowData.model}</Flex.Item>
                             </Flex>
                             <Flex style={goodsItemStyle}>

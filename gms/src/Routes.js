@@ -231,6 +231,11 @@ const getOrderBalancepage = (nextState, callback) => {
         callback(null, require('./containers/Order/index').orderBalance);
     }, 'orderBalance');
 };
+const getOrderDetailpage = (nextState, callback) => {
+    require.ensure([], function(require) {
+        callback(null, require('./containers/Order/index').orderDetail);
+    }, 'orderDetail');
+};
 
 
 
@@ -315,6 +320,7 @@ const Routes = () => (
             <Route path="/shop/:id/order/list" getComponent={getOrderListpage} />
             <Route path="/shop/:id/order/addGoods" getComponent={getOrderAddGoodspage} />
             <Route path="/shop/:id/order/balance" getComponent={getOrderBalancepage} />
+            <Route path="/shop/:id/order/:orderId/detail" getComponent={getOrderDetailpage} />
 
         </Route>
 

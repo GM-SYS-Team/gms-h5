@@ -91,7 +91,7 @@ class CustomerList extends React.Component{
         if(isFromOrder){
             title = "选择收货人";
             itemClick =(id)=>{
-                browserHistory.push("/shop/"+this.props.params.id+"/order/balance?from=order&goodsIds="+this.props.location.query.goodsIds+"&supplierId="+id);
+                browserHistory.push("/shop/"+this.props.params.id+"/order/balance?from=order&goodsIds="+this.props.location.query.goodsIds+"&customerId="+id);
             }}
         return (
             <Container className="customer list">

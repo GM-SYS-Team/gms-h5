@@ -37,6 +37,24 @@ export const balance = (params) => {
     }
 };
 
+//订单详情
+export const order_detail = "order_detail";
+export const showOrderDetail = (data) => ({
+    type: order_detail,
+    data: data
+});
+export const getOrderDetail = (params) => {
+    return (dispatch) => {
+        post("/app/jxc/saleList/detail",false,params,(res)=>{
+            if(res.code === "1"){
+                dispatch(showOrderDetail(res.data));
+            }else{
+                Toast.info(res.msg,1);
+            }
+        });
+    }
+};
+
 //店铺商品列表
 export const index_shop_goods_list = "index_shop_goods_list";
 export const showShopGoodsList = (data) => ({

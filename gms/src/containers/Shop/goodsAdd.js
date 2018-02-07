@@ -88,7 +88,7 @@ class GoodsAdd extends React.Component{
         unitList.forEach((item,index)=>{
             unitListData.push({
                 label:item.name,
-                value:item.id,
+                value:item.name,
             })
         })
 

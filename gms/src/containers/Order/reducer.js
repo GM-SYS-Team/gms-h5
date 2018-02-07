@@ -1,5 +1,6 @@
 import * as actions from './actions';
 import dealPage from '../../utils/dealPage';
+import {order_detail} from "./actions";
 
 /**
  * 根据actions处理结果返回新的state
@@ -20,7 +21,10 @@ export default (state = {}, action) => {
         case actions.index_shop_goods_list:{
             return {...state,shopGoodsList:action.data}
         }
-
+        //订单详情
+        case actions.order_detail:{
+            return {...state,orderDetail:action.data}
+        }
 
 
         //供应商列表

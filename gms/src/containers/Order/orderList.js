@@ -3,8 +3,9 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from './actions';
 import './view/style.less';
+import { browserHistory } from 'react-router'
 
-import {WhiteSpace, Modal,ListView, List,SwipeAction,Flex,Button} from 'antd-mobile';
+import {WingBlank,WhiteSpace, Modal,ListView, List,SwipeAction,Flex,Button} from 'antd-mobile';
 import 'moment/locale/zh-cn';
 import TopBar from "../../components/Container/TopBar";
 import Container from "../../components/Container/index";
@@ -79,55 +80,61 @@ class OrderList extends React.Component{
 
         //渲染每一行数据
         const row = (rowData, sectionID, rowID) => {
-            let goodsItemStyle = {color:"#888",fontSize:14,marginTop:10}
+            let goodsItemStyle = {fontSize:14,marginTop:5}
+            let typeName = "";
+            if(typeof rowData.type !== "undefined" && rowData.type !=null){
+                typeName = rowData.type.name;
+            }
+
+            //循环商品
+            let goodsItemPage = [];
+            rowData.saleListGoodsList.forEach((item,index)=>{
+                goodsItemPage.push(
+                    <div style={{width:"100%", borderBottom:"1px solid #e9e9e9",padding:"10px 0"}}>
+                        <div style={{}}>{item.name}</div>
+                        <Flex style={goodsItemStyle}>
+                            <Flex.Item>销售价：{item.price}</Flex.Item>
+                            <Flex.Item>总金额：{item.total }</Flex.Item>
+                            <Flex.Item>数量：{item.num }</Flex.Item>
+                        </Flex>
+                    </div>
+                );
+            });
+
             return (
-                <Item
-                    align="top"
-                    multipleLine>
+                <div>
+                    <Item
+                        align="top"
+                        multipleLine
+                        onClick={()=>{
+                            browserHistory.push("/shop/"+this.props.params.id+"/order/"+rowData.id+"/detail");
+                        }}
+                    >
 
-                    <div style={{overflow:"auto"}}>
-                        <div style={{float:"left"}}>
-                            <img style={{width:75,height:"auto"}} src={rowData.pictureAddress} alt=""/>
+                        <div style={{
+                            overflow:"auto",
+                            borderBottom:"1px solid #e9e9e9",
+                            fontSize:14,
+                            color:"#888",
+                            paddingBottom:7
+                        }}>
+                            <div style={{float:"left"}}>{rowData.saleDate}</div>
+                            <div style={{float:"right"}}>{rowData.saleNumber}</div>
                         </div>
-                        <div style={{float:"left",paddingLeft:10,width:"70%"}}>
-                            <div>{rowData.name}</div>
-                        </div>
-                    </div>
+                        {goodsItemPage}
+                        {/*销售备注：*/}
+                    </Item>
 
-                    <div style={{width:"100%"}}>
-                        <Flex style={goodsItemStyle}>
-                            <Flex.Item>进价：{rowData.purchasingPrice}</Flex.Item>
-                            <Flex.Item>售价：{rowData.sellingPrice }</Flex.Item>
-                        </Flex>
-                        <Flex style={goodsItemStyle}>
-                            <Flex.Item>商品品类：{rowData.type}</Flex.Item>
-                            <Flex.Item>商品规格：</Flex.Item>
-                        </Flex>
-                        <Flex style={goodsItemStyle}>
-                            <Flex.Item>商品单位：{rowData.unit}</Flex.Item>
-                            <Flex.Item>库存量：{rowData.inventoryQuantity }</Flex.Item>
-                        </Flex>
-                        <Flex style={goodsItemStyle}>
-                            <Flex.Item>上次进价：{rowData.last_purchasing_price}</Flex.Item>
-                            <Flex.Item>成本均价：</Flex.Item>
-                        </Flex>
-                        <Flex style={goodsItemStyle}>
-                            <Flex.Item>销售总数：{rowData.unit}</Flex.Item>
-                            <Flex.Item>库存总将：{rowData.inventoryQuantity }</Flex.Item>
-                        </Flex>
+                    <div style={{
+                        backgroundColor:"#f5f5f9",
+                        color:"#f5f5f9",
+                        width:"100%",
+                        height:10
+                    }}>.</div>
+                </div>
 
-                        {/*<Flex style={goodsItemStyle}>
-                            <Flex.Item style={{textAlign:"right"}}>
-                                <Button type="primary" inline size="small" style={{ marginRight: '4px' }}>编辑</Button>
-                            </Flex.Item>
-                        </Flex>*/}
-                    </div>
-
-                </Item>
             );
         };
-
-        let addUrl = "/shop/"+this.props.params.id+"/goodsAdd";
 
         return (
 

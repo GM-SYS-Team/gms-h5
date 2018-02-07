@@ -91,6 +91,7 @@ class Balance extends React.Component{
 
         this.props.balance({
             shopId:this.props.params.id,
+            customerId:this.props.location.query.customerId,
             data:JSON.stringify(goodsList)
         })
     }

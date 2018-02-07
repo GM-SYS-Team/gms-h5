@@ -115,11 +115,22 @@ class Coupon extends React.Component{
         this.loadingData(index);
     }
 
-    shareCoupon = (couponId) =>{
+    shareCoupon = (rowData,couponId) =>{
         this.props.shareCoupon({
             shopId:this.props.params.id,
             couponId:couponId
         });
+
+
+        var u = navigator.userAgent, app = navigator.appVersion;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+        var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+            window.shareCoupon(JSON.stringify(rowData));
+        }
+        if (isIOS) {
+            window.webkit.messageHandlers.shareCoupon.postMessage(JSON.stringify(rowData));
+        }
     }
 
     render(){
@@ -207,7 +218,7 @@ class Coupon extends React.Component{
 
                     <div style={{textAlign:"right"}}>
                         <WhiteSpace/>
-                        <Button disabled={shared} type="ghost" inline size="small" style={{ marginRight: '4px' }} onClick={this.shareCoupon.bind(this,rowData.id)}>共享该优惠券</Button>
+                        <Button type="ghost" inline size="small" style={{ marginRight: '4px' }} onClick={this.shareCoupon.bind(this,rowData,rowData.id)}>共享该优惠券</Button>
                     </div>
 
                 </Item>

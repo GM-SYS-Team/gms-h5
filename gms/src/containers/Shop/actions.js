@@ -116,7 +116,7 @@ export const listUnit = (params) => {
 //店铺商品添加
 export const shopGoodsAdd = (params) => {
     return (dispatch) => {
-        post("/app/goods/save",false,params,(res)=>{
+        post("/app/jxc/goods/save",false,params,(res)=>{
             if(res.code === "1"){
                 window.history.back();
             }else{
