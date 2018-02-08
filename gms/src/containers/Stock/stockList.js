@@ -118,19 +118,15 @@ class StockList extends React.Component{
                         </Flex>
                         <Flex style={goodsItemStyle}>
                             <Flex.Item>商品品类：{typeName}</Flex.Item>
-                            <Flex.Item>商品规格：</Flex.Item>
+                            <Flex.Item>商品规格：{rowData.model}</Flex.Item>
                         </Flex>
                         <Flex style={goodsItemStyle}>
                             <Flex.Item>商品单位：{rowData.unit}</Flex.Item>
-                            <Flex.Item>库存量：{rowData.inventoryQuantity }</Flex.Item>
+                            <Flex.Item>上次进价：{rowData.lastPurchasingPrice}</Flex.Item>
                         </Flex>
                         <Flex style={goodsItemStyle}>
-                            <Flex.Item>上次进价：{rowData.last_purchasing_price}</Flex.Item>
-                            <Flex.Item>成本均价：</Flex.Item>
-                        </Flex>
-                        <Flex style={goodsItemStyle}>
-                            <Flex.Item>销售总数：{rowData.unit}</Flex.Item>
-                            <Flex.Item>库存总将：{rowData.inventoryQuantity }</Flex.Item>
+                            <Flex.Item>销售总数：{rowData.saleTotal}</Flex.Item>
+                            <Flex.Item>库存总量：{rowData.inventoryQuantity }</Flex.Item>
                         </Flex>
 
                         {/*<Flex style={goodsItemStyle}>

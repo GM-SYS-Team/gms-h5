@@ -86,7 +86,6 @@ class AddOrEdit extends React.Component{
 
         //格式化供应商列表
         let supplierList = this.props.supplierList;
-        console.log(supplierList);
         let supplierListData = [];
         supplierList.forEach((item,index)=>{
             supplierListData.push({
