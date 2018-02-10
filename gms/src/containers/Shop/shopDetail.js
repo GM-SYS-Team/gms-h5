@@ -58,6 +58,7 @@ class Detail extends React.Component{
 
                 <TopBar
                     title="店铺管理"
+                    targetPage={"/shop/manager"}
                 />
 
                 <List renderHeader={() => '店铺信息'}>

@@ -193,7 +193,7 @@ export const shareCoupon = (params) => {
     return (dispatch) => {
         post("/app/coupon/shareCoupon",false,params,(res)=>{
             if(res.code === "1"){
-                Toast.info("共享成功");
+                /*Toast.info("共享成功");*/
             }else{
                 Toast.info(res.msg,1);
             }
