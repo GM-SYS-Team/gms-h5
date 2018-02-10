@@ -126,7 +126,7 @@ class Coupon extends React.Component{
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
         var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
         if (isAndroid) {
-            window.shareCoupon(JSON.stringify(rowData));
+            window.gx.shareCoupon(JSON.stringify(rowData));
         }
         if (isIOS) {
             window.webkit.messageHandlers.shareCoupon.postMessage(JSON.stringify(rowData));
