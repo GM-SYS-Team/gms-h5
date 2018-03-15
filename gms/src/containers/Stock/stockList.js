@@ -125,7 +125,6 @@ class StockList extends React.Component{
                             <Flex.Item>上次进价：{rowData.lastPurchasingPrice}</Flex.Item>
                         </Flex>
                         <Flex style={goodsItemStyle}>
-                            <Flex.Item>销售总数：{rowData.saleTotal}</Flex.Item>
                             <Flex.Item>库存总量：{rowData.inventoryQuantity }</Flex.Item>
                         </Flex>
 

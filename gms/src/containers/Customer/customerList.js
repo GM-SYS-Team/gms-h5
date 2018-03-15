@@ -43,6 +43,10 @@ class CustomerList extends React.Component{
         };
     }
 
+    params ={
+        name:""
+    }
+
     componentDidMount() {
         this.loadingData();
     }
@@ -61,11 +65,17 @@ class CustomerList extends React.Component{
         this.props.listCustomer({
             page:1,
             rows:1000,
-            shopId:this.props.params.id
+            shopId:this.props.params.id,
+            name:this.params.name
         });
     }
 
     onSearch = (val) => {
+        this.params.name = val;
+        this.loadingData();
+        this.setState({
+            inputValue: val,
+        });
        /* Object.keys(pd).forEach((item) => {
             const arr = pd[item].filter(jj => jj.spell.toLocaleLowerCase().indexOf(val) > -1);
             if (!arr.length) {

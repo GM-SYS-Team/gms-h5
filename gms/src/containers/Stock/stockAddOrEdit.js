@@ -130,6 +130,8 @@ class AddOrEdit extends React.Component{
                             rules: [{ required: true,message:"请输入单价"}],
                         })}
                         placeholder="点击填写"
+                        type="money"
+                        moneyKeyboardAlign="left"
                         error={typeof this.state.formError["price"] !== "undefined"}
                         onErrorClick={this.onErrorClick.bind(this,"price")}
                     >单价</InputItem>
@@ -139,6 +141,7 @@ class AddOrEdit extends React.Component{
                             initialValue: this.state.stock.number,
                             rules: [{ required: true,message:"请输入进货数量"}],
                         })}
+                        type="number"
                         placeholder="点击填写"
                         error={typeof this.state.formError["num"] !== "undefined"}
                         onErrorClick={this.onErrorClick.bind(this,"num")}

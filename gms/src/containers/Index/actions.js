@@ -23,3 +23,23 @@ export const loadingShopList = (params) => {
         });
     }
 };
+
+
+//首页推荐列表
+export const index_tuijan_list = "index_tuijan_list";
+export const showIndexTuijianList = (data) => ({
+    type: index_tuijan_list,
+    data: data
+});
+
+export const listTuijian = (params) => {
+    return (dispatch) => {
+        post("/app/coupon/tuijian",false,params,(res)=>{
+            if(res.code === "1"){
+                dispatch(showIndexTuijianList(res.data));
+            }else{
+                Toast.info(res.msg,1);
+            }
+        });
+    }
+};

@@ -5,7 +5,7 @@ import * as actions from './actions';
 import './view/style.less';
 import { browserHistory } from 'react-router'
 
-import {Grid , WhiteSpace, Badge, Flex, List,Modal} from 'antd-mobile';
+import {Grid , WhiteSpace, Badge, Flex, List,Modal, ListView,Toast} from 'antd-mobile';
 import Container from "../../components/Container/index";
 
 import {Link} from 'react-router';
@@ -19,6 +19,39 @@ const alert = Modal.alert;
 
 class Index extends React.Component{
 
+    constructor(props) {
+        super(props);
+        //定义数据源
+        const dataSource0 = new ListView.DataSource({
+            rowHasChanged: (row1, row2) => row1 !== row2,
+        });
+
+        //设置state
+        this.state = {
+            dataSource0,
+            isLoading: true,
+            pageData0:[],
+            userType : localStorage.getItem("userType")
+        };
+    }
+
+    componentDidMount(){
+        if(typeof this.state.userType !== "undefined" && this.state.userType == "2"){
+            this.props.listTuijian();
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        let tabIndex = 0;
+        //为数据源增加数据
+        let datas = nextProps.tuijianList.couponList;
+        this.setState({
+            ["dataSource"+tabIndex]: this.state["dataSource"+tabIndex].cloneWithRows(datas),
+            ["pageData"+tabIndex]:datas,
+            isLoading: false
+        });
+        Toast.hide();
+    }
 
     gridClick = (index) =>{
         let userType = localStorage.getItem("userType");
@@ -65,6 +98,11 @@ class Index extends React.Component{
 
     render(){
 
+        let showTuijian = false;
+        if(typeof this.state.userType !== "undefined" && this.state.userType == "2"){
+            showTuijian = true;
+        }
+
         let data = [
             {
                 icon: require('./view/icon1.png'),
@@ -95,6 +133,58 @@ class Index extends React.Component{
         let isShowLogin = typeof localStorage.getItem("userToken") === "undefined";
 
 
+        let couponStyle = {
+            position: "relative",
+            color:"#000"
+        }
+        let couponImg ={
+            width:"auto",
+
+            height:"80px",
+        }
+        let couponDiv1 = {
+            top:"22%",
+            left:"10%",
+            fontSize:12,
+            textAlign:"center"
+        }
+
+        //渲染每一行数据
+        const row1 = (rowData, sectionID, rowID) => {
+            //面值展示
+            let amount = "";
+            let coupon = rowData;
+            if(rowData.minAmount != null && rowData.maxAmount ){
+                if(rowData.minAmount === rowData.maxAmount){
+                    amount = rowData.minAmount;
+                }else{
+                    amount = rowData.minAmount +"-"+ rowData.maxAmount;
+                }
+            }
+            //开始结束时间
+           /* let startDate = new Date();
+            let endDate = new Date();
+            if(typeof coupon.expiryDateStart !== "undefined"){
+                startDate = new Date(coupon.expiryDateStart);
+            }
+            if(typeof coupon.expiryDateStop !== "undefined"){
+                endDate = new Date(coupon.expiryDateStop);
+            }
+            let couponStartDate = startDate.Format("yyyy-MM-dd HH:mm:ss");
+            let couponEndDate = endDate.Format("yyyy-MM-dd HH:mm:ss");*/
+            return (
+                <Link to={"/draw?couponId="+rowData.id+"&shopId="+rowData.shopId}>
+                    <Item style={{float:"left",width:"25%"}}>
+                        <div style={couponStyle}>
+                            <img style={couponImg} src={rowData.quickMark} alt=""/>
+                            <div style={couponDiv1}>{rowData.couponName}</div>
+                        </div>
+                    </Item>
+                </Link>
+            );
+        };
+
+
         return (
             <Container className="index" >
 
@@ -111,6 +201,25 @@ class Index extends React.Component{
                     columnNum={3}
                     hasLine={false}
                     onClick={(el,index) => this.gridClick(index)}/>
+
+
+                <div style={{display:showTuijian?"":"none"}}>
+                    <ListView
+                        ref={el => this.lv = el}
+                        dataSource={this.state.dataSource0}
+                        renderFooter={""}
+                        renderRow={row1}
+                        className="link-list"
+                        pageSize={10}
+                        useBodyScroll
+                        onScroll={() => { console.log('scroll'); }}
+                        scrollRenderAheadDistance={500}
+                        onEndReached={this.onEndReached}
+                        onEndReachedThreshold={10}
+                    />
+                </div>
+
+
             </Container>
         );
     }
@@ -119,14 +228,13 @@ class Index extends React.Component{
 //组件名和组件初始化状态
 export const stateKey = "index";
 export const initialState = {
-
+    tuijianList: []
 };
-
 //注入state和actions
 const mapStateToProps = (state) => ({
-
+    tuijianList:state[stateKey].tuijianList
 });
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-
+    listTuijian: actions.listTuijian
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Index);
