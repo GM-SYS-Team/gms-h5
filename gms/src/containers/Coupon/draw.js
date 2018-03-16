@@ -149,10 +149,13 @@ class Draw extends React.Component{
 
         let hideMain = false;
         let hideShare = false;
+        let from = this.props.location.query.from;
         if(typeof coupon.couponName === "undefined"|| coupon.couponName == null){
             hideMain = true;
         }
-        if(typeof shareCoupon.couponName === "undefined" || shareCoupon.couponName == null){
+        if(typeof shareCoupon.couponName === "undefined"
+            || shareCoupon.couponName == null
+            || from == "index"){
             hideShare = true;
         }
 
@@ -160,7 +163,7 @@ class Draw extends React.Component{
             <Container className="draw">
                 <TopBar
                     title="领取优惠券"
-                    hideback="true"
+                    hideback={from != "index"}
                 />
 
                 <WingBlank style={{display:hideMain?"none":""}}>

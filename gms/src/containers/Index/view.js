@@ -5,7 +5,7 @@ import * as actions from './actions';
 import './view/style.less';
 import { browserHistory } from 'react-router'
 
-import {Grid , WhiteSpace, Badge, Flex, List,Modal, ListView,Toast} from 'antd-mobile';
+import {Grid , WhiteSpace, Badge, Flex, List,Modal, ListView,Toast,Button} from 'antd-mobile';
 import Container from "../../components/Container/index";
 
 import {Link} from 'react-router';
@@ -37,7 +37,10 @@ class Index extends React.Component{
 
     componentDidMount(){
         if(typeof this.state.userType !== "undefined" && this.state.userType == "2"){
-            this.props.listTuijian();
+            let userToken = getCookie("userToken");
+            if(typeof userToken !== "undefined" && userToken !== null ){
+                this.props.listTuijian();
+            }
         }
     }
 
@@ -99,7 +102,8 @@ class Index extends React.Component{
     render(){
 
         let showTuijian = false;
-        if(typeof this.state.userType !== "undefined" && this.state.userType == "2"){
+        let userToken = getCookie("userToken");
+        if(typeof this.state.userType !== "undefined" && this.state.userType == "2" && typeof userToken !== "undefined" && userToken !== null ){
             showTuijian = true;
         }
 
@@ -132,14 +136,20 @@ class Index extends React.Component{
 
         let isShowLogin = typeof localStorage.getItem("userToken") === "undefined";
 
-
+        let itemStyle = {
+            float:"left",
+            width:"25%",
+            textAlign:"center",
+            border:"0.5px solid #f2f2f2",
+            borderRadius: 5,
+        }
         let couponStyle = {
             position: "relative",
-            color:"#000"
+            color:"#000",
+            textAlign:"center"
         }
         let couponImg ={
             width:"auto",
-
             height:"80px",
         }
         let couponDiv1 = {
@@ -173,14 +183,17 @@ class Index extends React.Component{
             let couponStartDate = startDate.Format("yyyy-MM-dd HH:mm:ss");
             let couponEndDate = endDate.Format("yyyy-MM-dd HH:mm:ss");*/
             return (
-                <Link to={"/draw?couponId="+rowData.id+"&shopId="+rowData.shopId}>
-                    <Item style={{float:"left",width:"25%"}}>
-                        <div style={couponStyle}>
-                            <img style={couponImg} src={rowData.quickMark} alt=""/>
-                            <div style={couponDiv1}>{rowData.couponName}</div>
+
+                <Item style={itemStyle}>
+                    <div style={couponStyle}>
+                        <div style={{textAlign:"center"}}>
+                            <img style={couponImg} src={rowData.goodsPic} alt=""/>
                         </div>
-                    </Item>
-                </Link>
+                        <div style={couponDiv1}>{rowData.couponName}</div>
+                        <Link to={"/draw?couponId="+rowData.id+"&shopId="+rowData.shopId+"&from=index"}><Button type="primary" size="small" inline>领取</Button> </Link>
+                    </div>
+                </Item>
+
             );
         };
 
@@ -203,7 +216,7 @@ class Index extends React.Component{
                     onClick={(el,index) => this.gridClick(index)}/>
 
 
-                <div style={{display:showTuijian?"":"none"}}>
+                <div style={{display:showTuijian?"":"none",position:"fixed",bottom:"70px",width:"100%"}}>
                     <ListView
                         ref={el => this.lv = el}
                         dataSource={this.state.dataSource0}
