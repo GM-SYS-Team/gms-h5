@@ -136,17 +136,15 @@ class Index extends React.Component{
 
         let isShowLogin = typeof localStorage.getItem("userToken") === "undefined";
 
-        let itemStyle = {
-            float:"left",
-            width:"25%",
-            textAlign:"center",
-            border:"0.5px solid #f2f2f2",
-            borderRadius: 5,
-        }
         let couponStyle = {
             position: "relative",
             color:"#000",
-            textAlign:"center"
+            textAlign:"center",
+            border:"0.5px solid #f2f2f2",
+            backgroundColor:"#fff",
+            borderRadius: 7,
+            overflow:"hidden",
+            padding:"5px 0 5px 0"
         }
         let couponImg ={
             width:"auto",
@@ -159,43 +157,28 @@ class Index extends React.Component{
             textAlign:"center"
         }
 
-        //渲染每一行数据
-        const row1 = (rowData, sectionID, rowID) => {
-            //面值展示
-            let amount = "";
-            let coupon = rowData;
-            if(rowData.minAmount != null && rowData.maxAmount ){
-                if(rowData.minAmount === rowData.maxAmount){
-                    amount = rowData.minAmount;
-                }else{
-                    amount = rowData.minAmount +"-"+ rowData.maxAmount;
-                }
-            }
-            //开始结束时间
-           /* let startDate = new Date();
-            let endDate = new Date();
-            if(typeof coupon.expiryDateStart !== "undefined"){
-                startDate = new Date(coupon.expiryDateStart);
-            }
-            if(typeof coupon.expiryDateStop !== "undefined"){
-                endDate = new Date(coupon.expiryDateStop);
-            }
-            let couponStartDate = startDate.Format("yyyy-MM-dd HH:mm:ss");
-            let couponEndDate = endDate.Format("yyyy-MM-dd HH:mm:ss");*/
-            return (
 
-                <Item style={itemStyle}>
-                    <div style={couponStyle}>
-                        <div style={{textAlign:"center"}}>
-                            <img style={couponImg} src={rowData.goodsPic} alt=""/>
+        let couponItemList = [];
+        if(typeof this.props.tuijianList !== "undefined"
+            && typeof this.props.tuijianList.couponList !== "undefined"
+            && this.props.tuijianList.couponList.length > 0){
+
+            this.props.tuijianList.couponList.forEach((rowData,index)=>{
+                couponItemList.push(
+                    <Flex.Item style={{marginLeft:0}}>
+                        <div style={couponStyle}>
+                            <div style={{textAlign:"center"}}>
+                                <img style={couponImg} src={rowData.goodsPic} alt=""/>
+                            </div>
+                            <div style={couponDiv1}>{rowData.couponName}</div>
+                            <Link to={"/draw?couponId="+rowData.id+"&shopId="+rowData.shopId+"&from=index"}><Button type="primary" size="small" inline>领取</Button> </Link>
                         </div>
-                        <div style={couponDiv1}>{rowData.couponName}</div>
-                        <Link to={"/draw?couponId="+rowData.id+"&shopId="+rowData.shopId+"&from=index"}><Button type="primary" size="small" inline>领取</Button> </Link>
-                    </div>
-                </Item>
-
-            );
-        };
+                    </Flex.Item>);
+            })
+        }
+        let couponContainer = (
+            <Flex justify="center">{couponItemList}</Flex>
+        );
 
 
         return (
@@ -217,19 +200,7 @@ class Index extends React.Component{
 
 
                 <div style={{display:showTuijian?"":"none",position:"fixed",bottom:"70px",width:"100%"}}>
-                    <ListView
-                        ref={el => this.lv = el}
-                        dataSource={this.state.dataSource0}
-                        renderFooter={""}
-                        renderRow={row1}
-                        className="link-list"
-                        pageSize={10}
-                        useBodyScroll
-                        onScroll={() => { console.log('scroll'); }}
-                        scrollRenderAheadDistance={500}
-                        onEndReached={this.onEndReached}
-                        onEndReachedThreshold={10}
-                    />
+                    {couponContainer}
                 </div>
 
 
