@@ -111,7 +111,7 @@ class Index extends React.Component{
             {
                 icon: require('./view/icon1.png'),
                 text: `优赚呗`,
-            }/*,
+            },
             {
                 icon: require('./view/icon2.png'),
                 text: `社区`,
@@ -131,7 +131,7 @@ class Index extends React.Component{
             {
                 icon: require('./view/icon6.png'),
                 text: `微商`,
-            }*/
+            }
         ];
 
         let isShowLogin = typeof localStorage.getItem("userToken") === "undefined";
